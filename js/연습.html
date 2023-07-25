@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body><!DOCTYPE html>
+    <html>
+    <head>
+        <title>Dynamic Table with Empty Value Deletion</title>
+    </head>
+    <body>
+        <table id="dynamicTable">
+            <!-- Table content goes here -->
+            <tr>
+                <td>1</td>
+                <td></td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>5</td>
+                <td>6</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td></td>
+                <td>9</td>
+            </tr>
+        </table>
+        <button id="deleteEmptyValuesBtn">Delete Empty Values</button>
+    
+        <script>
+            // Function to delete empty values from the table
+            function deleteEmptyValues() {
+                var table = document.getElementById("dynamicTable");
+                if (table) {
+                    var rows = table.getElementsByTagName("tr");
+    
+                    // Iterate through each row
+                    for (var i = 0; i < rows.length; i++) {
+                        var cells = rows[i].getElementsByTagName("td");
+                        // Iterate through each cell in the row
+                        for (var j = 0; j < cells.length; j++) {
+                            if (cells[j].innerHTML.trim() === "") {
+                                // Remove the cell if it's empty
+                                cells[j].parentNode.removeChild(cells[j]);
+                            }
+                        }
+                    }
+                }
+            }
+    
+            // Attach a click event to the "Delete Empty Values" button
+            var deleteButton = document.getElementById("deleteEmptyValuesBtn");
+            deleteButton.addEventListener("click", deleteEmptyValues);
+        </script>
+    </body>
+    </html>
+    
+    
+</body>
+</html>

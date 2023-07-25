@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>write</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="js/sessionStorage.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/cookie.js"></script>
+
+</head>
+
+<style>
+    body {
+        margin: 0;
+    }
+
+    .container {
+        min-height: 53vh;
+        position: relative;
+        border-top: 2px solid #000;
+        border-bottom: 2px solid #000;
+        margin-top: 80px;
+    }
+
+    .line01 {
+        width: 100%;
+        border-bottom: 1px solid #d6d5d5;
+        position: absolute;
+        top: 80px;
+    }
+
+    .line02 {
+        width: 100%;
+        border-bottom: 1px solid #d6d5d5;
+        position: absolute;
+        top: 240px;
+    }
+
+    #title_content {
+        position: absolute;
+        left: 300px;
+        top: 18px;
+        width: 65%;
+        height: 48px;
+        background: #f2f2f2;
+        border: none;
+    }
+
+    #text_Box {
+        position: absolute;
+        left: 300px;
+        top: 100px;
+        width: 65%;
+        height: 120px;
+        background: #f2f2f2;
+        border: none;
+    }
+
+    /*확인 버튼*/
+    #save {
+        background: #000;
+        color: #fff;
+        position: absolute;
+        width: 180px;
+        height: 50px;
+        left: 50%;
+        top: 600px;
+        transform: translate(30%, -50%);
+        font-size: 1em;
+    }
+
+    #save:hover {
+        background: #fff;
+        color: #000;
+    }
+
+    /*뒤로 버튼*/
+    #back {
+        background: #000;
+        color: #fff;
+        position: absolute;
+        width: 180px;
+        height: 50px;
+        left: 50%;
+        top: 600px;
+        transform: translate(-120%, -50%);
+        font-size: 1em;
+    }
+
+    #back:hover {
+        background: #fff;
+        color: #000;
+    }
+
+    p {
+        position: absolute;
+        left: 130px;
+        top: 55px;
+    }
+
+    #check {
+        position: absolute;
+        right: 150px;
+        top: 360px;
+    }
+
+    .content {
+        position: relative;
+    }
+
+    .content li {
+        list-style: none;
+        margin-bottom: 100px;
+    }
+
+    .content li:nth-child(1) {
+        margin-top: 30px;
+    }
+
+    .content li:nth-child(2) {
+        position: absolute;
+        top: 120px;
+    }
+
+    .content li:nth-child(3) {
+        position: absolute;
+        top: 320px;
+    }
+
+    #check_wrap {
+        position: absolute;
+        left: 300px;
+        top: 270px;
+    }
+
+    /* input 숨겨준다 */
+    input#checkbox_btn {
+        display: none;
+    }
+
+    input#checkbox_btn+label {
+        cursor: pointer;
+        background: url(image/check_img_02.png)no-repeat;
+        background-size: 15px;
+        background-position: 50%;
+    }
+
+    /* label:before에 체크하기 전 상태 CSS */
+    input#checkbox_btn+label:before {
+        content: "";
+        display: inline-block;
+        width: 28px;
+        height: 28px;
+        border: 2px solid #d6d5d5;
+        border-radius: 50%;
+        vertical-align: middle;
+    }
+
+    /* label:before에 체크 된 상태 CSS */
+    input#checkbox_btn:checked+label:before {
+        content: "";
+        border: 2px solid #000;
+        background: url(image/check_img_01.png)no-repeat;
+        background-size: 15px;
+        background-position: 50%;
+    }
+
+    .open li {
+        font-weight: bold;
+        position: absolute;
+        left: 350px;
+        top: 275px;
+        list-style: none;
+    }
+
+    .notice {
+        position: absolute;
+        left: 290px;
+        top: 320px;
+        line-height: 25px;
+    }
+
+    .notice li {
+        font-size: 14px;
+    }
+
+    .notice li:nth-child(2) {
+        list-style: none;
+    }
+
+    .notice li:nth-child(3) {
+        list-style: none;
+    }
+
+    .notice li:nth-child(4) {
+        list-style: none;
+    }
+
+    .btn-outline-secondary {
+        width: 200px;
+        height: 50px;
+        border-radius: 10px;
+        border: none;
+    }
+
+    #day_night {
+        width: 100px;
+        height: 40px;
+        border-radius: 50px;
+        font-weight: bold;
+        border: none;
+        background: #000;
+        color: #fff;
+        position: absolute;
+        right: 100px;
+        bottom: 60px;
+    }
+
+    /**********미디어 쿼리**********/
+    @media screen and (max-width:768px) {
+        .content li {
+            width: 40px;
+            font-size: 15px;
+        }
+
+        /*제목*/
+        #title_content {
+            transform: translateX(-35%);
+            font-size: 15px;
+        }
+
+        /*내용*/
+        #text_Box {
+            transform: translateX(-35%);
+            font-size: 15px;
+        }
+
+        /*체크 박스*/
+        #check_wrap {
+            transform: translateX(-430%);
+        }
+
+        /*비공개*/
+        .open li {
+            transform: translateX(-250%);
+            font-size: 15px;
+        }
+
+        /*비공개 내용*/
+        .notice {
+            width: 370px;
+            transform: translateX(-32%);
+        }
+
+        .notice li {
+            font-size: 13px;
+        }
+
+        /*확인 버튼*/
+        #save {
+            width: 150px;
+            font-size: 15px;
+        }
+
+        #back {
+            width: 150px;
+            font-size: 15px;
+        }
+
+        #day_night {
+            width: 60px;
+            font-size: 14px;
+            transform: translateX(100%);
+        }
+
+
+    }
+</style>
+
+<body>
+    <div class="container" id="containerColor">
+        <ul class="content">
+            <li>제목</li>
+            <li>내용</li>
+            <li>공개여부</li>
+        </ul>
+
+        <!--라인-->
+        <div class="line01"></div>
+        <div class="line02"></div>
+
+        <!--제목-->
+        <input type="text" id="title_content" placeholder="제목을 입력해주세요.">
+
+        <!--내용-->
+        <input type="text" id="text_Box" placeholder="내용을 입력해주세요.">
+        <button onclick="QnA_btn()" id="save">확인</button>
+        <button onclick="back_board_go_btn()" id="back">뒤로</button>
+
+        <!--체크박스-->
+        <div id="check_wrap">
+            <input type="checkbox" id="checkbox_btn" />
+            <label for="checkbox_btn"></label>
+        </div>
+
+        <ul class="open">
+            <li>비공개</li>
+        </ul>
+
+        <ul class="notice">
+            <li>부적절한 게시물 등록 시 비노출 또는 무통보 삭제될 수 있습니다.</li>
+            <li>-개인정보를 포함한 직거래 유도 내용</li>
+            <li>-비방/욕설/명예훼손에 해당되는 게시물</li>
+            <li>-본 사이트와 관계없는 타 사이트와의 가격비교 및 구매 문의</li>
+        </ul>
+    </div> <!--container-->
+
+    <!--클릭하면 배경색 바뀌고 다시 클릭하면 원래대로-->
+    <input type="button" value="Night" id="day_night" onclick=" let target = document.querySelector('body');
+
+    if(this.value === 'Night'){
+        target.style.backgroundColor = '#000'; 
+        target.style.color = '#fff';
+        this.value = 'Day';
+        document.getElementById('save').style.backgroundColor = '#fff';
+        document.getElementById('save').style.color = '#000';
+        document.getElementById('containerColor').style.borderColor = '#fff';
+        document.getElementById('day_night').style.backgroundColor = '#fff';
+        document.getElementById('day_night').style.color = '#000';
+
+        let links = document.querySelectorAll('li'); 
+        let i = 0;
+        while(i < links.length){ 
+            links[i].style.color = '#fff';
+            i = i + 1; // index 순서대로 색을 바꿔줌 
+        }
+        
+    } else {
+        target.style.backgroundColor = '#fff';
+        target.style.color = '#000';
+        this.value = 'Night';
+        document.getElementById('save').style.backgroundColor = '#000';
+        document.getElementById('save').style.color = '#fff';
+        document.getElementById('containerColor').style.borderColor = '#000';
+        document.getElementById('day_night').style.backgroundColor = '#000';
+        document.getElementById('day_night').style.color = '#fff';
+        
+        let links = document.querySelectorAll('li'); 
+        let i = 0;
+        while(i < links.length){
+            links[i].style.color = '#000';
+            i = i + 1; 
+        }
+    }
+    ">
+
+    <script>
+        // 뒤로가기 버튼
+        function back_board_go_btn() {
+            let titleConent = document.getElementById("title_content");
+
+            if (confirm('글 작성을 취소하시겠습니까?')) {
+                location.href = 'board.html';
+            } else {
+                titleConent.focus();
+            }
+        }
+
+    </script>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shop</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/b2aa32177b.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="js/sessionStorage.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/cookie.js"></script>
+</head>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;900&display=swap');
+    /*text 모션 폰트*/
+    @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+    body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #000000;
+        border-bottom: 4px solid transparent;
+        height: 90px;
+    }
+
+    header ul {
+        display: flex;
+        margin-left: 290px;
+        transform: translateY(4px);
+    }
+
+    header ul li {
+        list-style: none;
+        margin-right: 40px;
+    }
+
+    header ul li a {
+        color: #fff;
+        font-size: 1.6em;
+        font-weight: bold;
+        font-family: 'Secular One', sans-serif;
+        text-decoration: none;
+    }
+
+    header ul li:hover a {
+        color: #C0C0C0;
+        border-bottom: 3px solid #C0C0C0;
+    }
+
+    header .mainlogo {
+        margin-top: 6px;
+    }
+
+    header .mobile_button i {
+        margin-right: 50px;
+        color: #000;
+        display: none;
+    }
+
+    /*모바일 메뉴*/
+    .mobile_menu {
+        display: none;
+    }
+
+    /*모바일 버튼*/
+    .mobile_button {
+        display: none;
+    }
+
+    /*메뉴*/
+    .menu {
+        width: 300px;
+        border: 1px solid red;
+    }
+
+    .menu ul {
+        text-align: center;
+    }
+
+    .menu ul li {
+        list-style: none;
+        font-size: 1.5em;
+        cursor: pointer;
+    }
+
+
+    /*shop 전체*/
+    .shop_container {
+        width: 80%;
+        height: 100%;
+        margin: 0 auto;
+        margin-top: 200px;
+    }
+
+    /*상품 사진*/
+    .shop_img {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-auto-rows: 450px;
+        grid-gap: 10px;
+        grid-row-gap: 100px;
+    }
+
+    .item {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /*상품 정보*/
+    .shop_text {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-row-gap: 475px;
+        margin-top: -555px;
+        font-weight: bold;
+    }
+
+    .shop_text span {
+        font-weight: 500;
+    }
+
+    /*장바구니 아이콘*/
+    .cart_icon {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-row-gap: 520px;
+        grid-column-gap: 230px;
+        margin-top: -600px;
+        margin-left: 240px;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+
+    /*All*/
+    #topmenuText {
+        font-size: 1.3em;
+        font-weight: bold;
+        margin-left: 10px;
+        display: inline-block;
+    }
+
+
+    /**********미디어 쿼리**********/
+    @media screen and (max-width:768px) {
+        header {
+            background: #000;
+            flex-direction: column;
+            width: 100%;
+            height: 90px;
+            position: relative;
+        }
+
+        header .mainlogo {
+            display: none;
+        }
+
+        /*모바일 로고*/
+        header .mobile_img {
+            background: url("image/logo_white.png")no-repeat;
+            width: 300px;
+            height: 40px;
+            background-size: contain;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        header ul {
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            margin-top: -8px;
+            display: none;
+        }
+
+        header ul li {
+            width: 90%;
+            margin-bottom: 8px;
+            margin-right: 40px;
+            text-align: center;
+        }
+
+        header ul li a {
+            color: #fff;
+        }
+
+        .mainimg {
+            background-size: cover;
+        }
+
+        header .mobile_button {
+            color: #fff;
+            display: block;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 30px;
+            cursor: pointer;
+        }
+
+        header ul li:hover {
+            background: #C0C0C0;
+        }
+
+        header ul li:hover a {
+            color: #000;
+        }
+
+        header ul.active {
+            display: flex;
+        }
+
+        /*모바일 메뉴*/
+        .mobile_menu {
+            width: 100%;
+            height: 100%;
+            display: block;
+            z-index: 500;
+            background: #fff;
+            position: fixed;
+            top: 0;
+            left: -100%;
+            transition: all .5s;
+        }
+
+        .navmenu {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /*모바일 메뉴 안 로고*/
+        .navlogo {
+            position: absolute;
+            top: 30px;
+        }
+
+        .navmenu li {
+            list-style: none;
+            text-align: center;
+            margin-bottom: 25px;
+            margin-right: 30px;
+        }
+
+        .navmenu li a {
+            color: #000;
+            text-decoration: none;
+            font-size: 1.6rem;
+            font-weight: bold;
+            font-family: 'Secular One', sans-serif;
+        }
+
+        /*닫기*/
+        .mobile_close_btn {
+            color: #000;
+            text-align: center;
+            cursor: pointer;
+            position: absolute;
+            top: 5px;
+            left: 35px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .mobile_close_btn:hover {
+            color: #C0C0C0;
+        }
+
+        .mobile_menu li a:hover {
+            color: #C0C0C0;
+            border-bottom: 3px solid #C0C0C0;
+        }
+
+        /*인스타그램 아이콘*/
+        .mobile_menu .sns_icon {
+            color: #000;
+            position: absolute;
+            bottom: 50px;
+        }
+
+        .mobile_menu a i:hover {
+            color: #C0C0C0;
+        }
+
+        /*footer 로고*/
+        footer img {
+            display: none;
+        }
+
+        footer p {
+            font-size: 0.8em;
+        }
+
+        /*상품 사진*/
+        .shop_img {
+            grid-auto-rows:350px;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 40px;
+            grid-row-gap: 100px;
+        }
+
+        /*상품 정보*/
+        .shop_text {
+            grid-template-columns: repeat(2, 1fr);
+            margin-top: -1800px;
+            grid-row-gap: 390px;
+            grid-column-gap:50px;
+            font-size:0.8em;
+            /*margin-top: -555px;*/
+        }
+
+        .shop_text span {
+            font-weight: 500;
+        }
+
+        /*장바구니 아이콘*/
+        .cart_icon {
+            grid-template-columns: repeat(2, 1fr);
+            grid-row-gap: 417px;
+            grid-column-gap: 235px;
+            margin-top: -1840px;
+            margin-left: 185px;
+            cursor: pointer;
+        }
+
+
+    }
+</style>
+
+<body>
+    <header>
+        <a href="#" onclick="main_page_go_btn()"><img src="image/logo_white_02.png" height="80px" class="mainlogo"></a>
+
+        <div class="mobile_img" onclick="main_page_go_btn()"></div>
+
+        <ul>
+            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="magazine.html">MAGAZINE</a></li>
+            <li><a href="shop.html">SHOP</a></li>
+            <li><a href="cart.html">CART</a></li>
+            <li><a href="#" onclick="board_go_btn()">Q&A</a></li>
+            <li><a href="#" onclick="mypage_go_btn()">MYPAGE</a></li>
+        </ul>
+
+        <div class="mobile_button">
+            <img src="image/mobile_button-white.png" width="50px">
+            <!--아이콘 크기 2배로 : fa-2x -->
+        </div>
+    </header>
+
+    <!--모바일 메뉴-->
+    <section class="mobile_menu">
+        <nav class="navmenu">
+            <ul>
+                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="magazine.html">MAGAZINE</a></li>
+                <li><a href="shop.html">SHOP</a></li>
+                <li><a href="cart.html">CART</a></li>
+                <li><a href="#" onclick="board_go_btn()">Q&A</a></li>
+                <li><a href="#" onclick="mypage_go_btn()">MYPAGE</a></li>
+            </ul>
+
+            <p class="mobile_close_btn"><img src="image/close_btn.png" width="50px"></p>
+            <a href="https://www.instagram.com/beattitude.kr/" class="sns_icon"><i
+                    class="fa-brands fa-instagram fa-2x"></i></a>
+
+            <img src="image/logo_mobile.png" width="300px" class="navlogo">
+        </nav>
+    </section>
+
+    <section class="shop_container">
+        <p id="topmenuText">ALL</p>
+
+        <div class="shop_img">
+            <img src="image/product_img_01_change.png" class="item">
+            <img src="image/product_img_02_change.png" class="item">
+            <img src="image/product_img_03_change.png" class="item">
+            <img src="image/product_img_04_change.png" class="item">
+            <img src="image/product_img_05_change.png" class="item">
+            <img src="image/product_img_06_change.png" class="item">
+            <img src="image/product_img_07_change.png" class="item">
+            <img src="image/product_img_08_change.png" class="item">
+            <img src="image/product_img_09_change.png" class="item">
+            <img src="image/product_img_10_change.png" class="item">
+        </div>
+
+        <div class="shop_text">
+            <p>Blossom lace shushu - white <br> <span>20,000원</span></p>
+            <p>Glare sleeveless - white <br> <span>28,000원</span> </p>
+            <p>black chair keyring <br> <span>32,000원</span></p>
+            <p>lime starfish griptok <br> <span>18,000원</span></p>
+            <p>TMT Logo Cap - GREEN <br> <span>35,000원</span></p>
+            <p>Racing Tote Bag <br> <span>79,000원</span></p>
+            <p>Love Rabbit Mug <br> <span>19,500원</span> </p>
+            <p>Black cutlery case<br> <span>22,000원</span></p>
+            <p>No.5 - Red/Silver<br> <span>189,000원</span></p>
+            <p>Mushroom lamp<br> <span>38,000원</span></p>
+        </div>
+
+        <div class="cart_icon">
+            <img src="image/cart_icon.png" id="cartBtn" onclick="cart_01()">
+            <img src="image/cart_icon.png" id="cartBtn" onclick="cart_02()">
+            <img src="image/cart_icon.png" id="cartBtn" onclick="cart_03()">
+            <img src="image/cart_icon.png" id="cartBtn" onclick="cart_04()">
+            <img src="image/cart_icon.png" id="cartBtn" onclick="cart_05()">
+            <img src="image/cart_icon.png" id="cartBtn" onclick="cart_06()">
+            <img src="image/cart_icon.png" id="cartBtn" onclick="cart_07()">
+            <img src="image/cart_icon.png" id="cartBtn" onclick="cart_08()">
+            <img src="image/cart_icon.png" id="cartBtn" onclick="cart_09()">
+            <img src="image/cart_icon.png" id="cartBtn" onclick="cart_10()">
+        </div>
+    </section>
+
+
+    <!--스크립트-->
+
+
+    <script>
+        // 모바일 크기 버튼 클릭 시 메뉴 나타나게 하기 
+        let toggleBtn = document.querySelector('.mobile_button');
+        let mobileMenu = document.querySelector('.mobile_menu');
+        let mobileClose_btn = document.querySelector('.mobile_close_btn');
+
+        toggleBtn.addEventListener('click', () => {
+            mobileMenu.style.left = '0px';
+            document.body.style.overflowY = 'hidden';
+        })
+
+        mobileClose_btn.addEventListener('click', () => {
+            mobileMenu.style.left = '-100%';
+            document.body.style.overflowY = 'visible';
+        })
+
+        // 메뉴 토글 버튼   
+        let toggleBtn01 = document.querySelector('.menu_close_btn_new');
+        let toggleBtn02 = document.querySelector('.menu_close_btn_best');
+
+        let menu01 = document.querySelector('.closemenu_new');
+        let menu02 = document.querySelector('.closemenu_best');
+
+        toggleBtn01.addEventListener('click', (e) => {
+            menu01.classList.toggle('active');
+        });
+
+        toggleBtn02.addEventListener('click', (e) => {
+            menu02.classList.toggle('active');
+
+        });
+
+
+        // 버튼 클릭 시 피라미터 넘기기
+        /*
+        function cart_01() {
+            alert('장바구니에 저장되었습니다.');
+            location.href = 'cart.html?cart01=product01';
+        }  
+         
+        function cart_02() {
+            alert('장바구니에 저장되었습니다.');
+            location.href = 'cart.html?cart02=product02';
+        }
+        */
+
+        function cart_duplication() {
+            alert('장바구니에 동일한 상품이 있습니다. \n 상품을 추가하시려면 수량을 수정해주세요.');
+            location.href = 'cart.html';
+        }
+
+        // 장바구니 버튼 클릭 시 쿠키 생성
+        function cart_01() {
+            if (!getCookie('cart01')) {
+                alert('장바구니에 저장되었습니다.');
+                location.href = 'cart.html';
+                setCookie('cart01', 'product01', 30);
+            } else {
+                cart_duplication();
+            }
+
+        }
+
+        function cart_02() {
+            if (!getCookie('cart02')) {
+                alert('장바구니에 저장되었습니다.');
+                location.href = 'cart.html';
+                setCookie('cart02', 'product02', 30);
+            } else {
+                cart_duplication();
+            }
+        }
+
+        function cart_03() {
+            if (!getCookie('cart03')) {
+                alert('장바구니에 저장되었습니다.');
+                location.href = 'cart.html';
+                setCookie('cart03', 'product03', 30);
+            } else {
+                cart_duplication();
+            }
+        }
+
+        function cart_04() {
+            if (!getCookie('cart04')) {
+                alert('장바구니에 저장되었습니다.');
+                location.href = 'cart.html';
+                setCookie('cart04', 'product04', 30);
+            } else {
+                cart_duplication();
+            }
+        }
+
+        function cart_05() {
+            if (!getCookie('cart05')) {
+                alert('장바구니에 저장되었습니다.');
+                location.href = 'cart.html';
+                setCookie('cart05', 'product05', 30);
+            } else {
+                cart_duplication();
+            }
+        }
+
+        function cart_06() {
+            if (!getCookie('cart06')) {
+                alert('장바구니에 저장되었습니다.');
+                location.href = 'cart.html';
+                setCookie('cart06', 'product06', 30);
+            } else {
+                cart_duplication();
+            }
+        }
+
+        function cart_07() {
+            if (!getCookie('cart07')) {
+                alert('장바구니에 저장되었습니다.');
+                location.href = 'cart.html';
+                setCookie('cart07', 'product07', 30);
+            } else {
+                cart_duplication();
+            }
+        }
+
+        function cart_08() {
+            if (!getCookie('cart08')) {
+                alert('장바구니에 저장되었습니다.');
+                location.href = 'cart.html';
+                setCookie('cart08', 'product08', 30);
+            } else {
+                cart_duplication();
+            }
+        }
+
+        function cart_09() {
+            if (!getCookie('cart09')) {
+                alert('장바구니에 저장되었습니다.');
+                location.href = 'cart.html';
+                setCookie('cart09', 'product09', 30);
+            } else {
+                cart_duplication();
+            }
+        }
+
+        function cart_10() {
+            if (!getCookie('cart10')) {
+                alert('장바구니에 저장되었습니다.');
+                location.href = 'cart.html';
+                setCookie('cart10', 'product10', 30);
+            } else {
+                cart_duplication();
+            }
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>

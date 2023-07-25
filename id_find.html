@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>아이디 찾기</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Pichforest" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+    <!-- Bootstrap Css -->
+    <link href="assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/b2aa32177b.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="js/main.js"></script>
+    <script src="js/cookie.js"></script>
+    <script src="js/sessionStorage.js"></script>
+
+    <!--카카오 로그인-->
+    <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!--네이버 로그인-->
+    <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+        charset="utf-8"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+
+</head>
+
+<style>
+    @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+    body {
+        margin: 0;
+        padding: 0;
+        background: #fff;
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #000000;
+    }
+
+    header ul {
+        display: flex;
+        margin-left: 300px;
+    }
+
+    header ul li {
+        list-style: none;
+        margin-right: 40px;
+        margin-top: 20px;
+    }
+
+    header ul li a {
+        color: #fff;
+        font-size: 1.6rem;
+        font-weight: bold;
+        font-family: 'Secular One', sans-serif;
+    }
+
+    header ul li:hover a {
+        color: #C0C0C0;
+        border-bottom: 3px solid #C0C0C0;
+    }
+
+    header img {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    header .mobile_button i {
+        margin-right: 50px;
+        color: #000;
+        display: none;
+    }
+
+    /**********미디어 쿼리**********/
+    @media screen and (max-width:768px) {
+        header {
+            background: #000;
+            flex-direction: column;
+        }
+
+        header img a {
+            display: none;
+        }
+
+        header .mobile_img {
+            width: 300px;
+            height: 80px;
+            background: url("image/logo_white.png")no-repeat;
+            background-size: contain;
+            margin-top: 30px;
+            margin-left: 15px;
+        }
+
+        header ul {
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            margin-top: -8px;
+            display: none;
+        }
+
+        header ul li {
+            width: 90%;
+            margin-bottom: 8px;
+            margin-right: 40px;
+            text-align: center;
+        }
+
+        header ul li a {
+            color: #fff;
+        }
+
+        .mainimg {
+            background-size: cover;
+        }
+
+        header .mobile_button i {
+            display: block;
+            color: #fff;
+            position: absolute;
+            top: 33px;
+            left: 30px;
+        }
+
+        header ul li:hover {
+            background: #C0C0C0;
+        }
+
+        header ul li:hover a {
+            color: #000;
+        }
+
+        header ul.active {
+            display: flex;
+        }
+    }
+
+    /*추가*/
+    .container {
+        position: relative;
+        width: 100%;
+        height: 800px;
+    }
+
+    .col-md-8 {
+        /* 아이디 찾기 컨텐츠 전체*/
+        width: 600px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -60%);
+    }
+
+    .mb-4 p {
+        /*아이디 찾기*/
+        font-size: 3.5em;
+        font-family: 'Noto Sans KR', sans-serif;
+        font-weight: 700;
+        color: #000;
+        text-align: left;
+    }
+
+    #input-username-find{
+        margin-bottom: 30px;
+        border: 2px solid #C0C0C0;
+        font-size: 16px;
+    }
+
+    #input-phoneNumber-find {
+        margin-bottom: 50px;
+        border: 2px solid #C0C0C0;
+        font-size: 16px;
+    }
+
+    .idfindbtn {
+        /*로그인 버튼*/
+        height: 60px;
+        background: #000;
+        color: #fff;
+        font-size: 1.2em;
+    }
+
+    .idfindbtn:hover {
+        background: #fff;
+        border: 1px solid #000;
+        color: #000;
+    }
+    
+    /*비번 찾으러 이동*/
+    .pw-find-go {
+        height:39.61px; 
+        margin-top:15px;
+    }
+
+    .pw-find-go p {
+        text-decoration: underline;
+        text-align:right;
+        line-height:39.61px;
+    }
+    .pw-find-go a {
+        color:#000;
+    }
+
+    .pw-find-go a:hover{
+        color:#C0C0C0;
+    }
+ 
+    
+  
+</style>
+
+<body style="overflow-y : hidden">
+    <header>
+        <a href="main_page_login.html"><img src="image/logo_white_02.png" height="80px"></a>
+
+        <div class="mobile_img"></div>
+
+        <ul>
+            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="shop.html">SHOP</a></li>
+            <li><a href="magazine.html">MAGAZINE</a></li>
+            <li><a href="#" onclick="board_go_btn()">Q&A</a></li>
+            <li><a href="#" onclick="logout_go_btn()">LOGOUT</a></li>
+            <li><a href="#" onclick="mypage_go_btn()">MYPAGE</a></li>
+        </ul>
+
+        <div class="mobile_button">
+            <a href="#"><i class="fa-solid fa-bars fa-2x"></i></a>
+            <!--아이콘 크기 2배로 : fa-2x -->
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="d-flex flex-column min-vh-100 px-3 pt-4">
+            <div class="row justify-content-center my-auto">
+                <div class="col-md-8 col-lg-6 col-xl-4">
+
+                    <div class="mb-4">
+                        <p>아이디 찾기</p>
+                    </div>
+
+                    <div class="form-floating form-floating-custom mb-3">
+                        <input type="text" class="form-control" id="input-username-find" placeholder="Enter User Name">
+                        <label for="input-username">이름</label>
+                        <div class="form-floating-icon">
+                            <i class="uil uil-users-alt"></i>
+                        </div>
+                    </div>
+                    <div class="form-floating form-floating-custom mb-3">
+                        <input type="text" class="form-control" id="input-phoneNumber-find" placeholder="Enter Password">
+                        <label for="input-password">번호</label>
+                        <div class="form-floating-icon">
+                            <i class="uil uil-users-alt"></i>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <button class="idfindbtn w-100" type="submit" onclick="id_check()">확인</button>
+                    </div>
+
+                    <div class="pw-find-go">
+                        <p><a href="pw_find.html">비밀번호 찾기</a></p>
+                    </div>
+ 
+  
+
+                </div>
+            </div><!-- end col -->
+        </div><!-- end row -->
+
+
+
+    </div>
+    </div><!--end container-- >
+       
+            
+
+    <!--JAVASCRIPT-->
+    <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/libs/metismenujs/metismenujs.min.js"></script>
+    <script src="assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="assets/libs/feather-icons/feather.min.js"></script>
+
+
+</body>
+
+</html>

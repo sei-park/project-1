@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>로그인</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Pichforest" name="author" />
+    <!-- App favicon -->
+
+    <!-- Bootstrap Css -->
+    <link href="assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/b2aa32177b.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="js/main.js"></script>
+    <script src="js/cookie.js"></script>
+    <script src="js/sessionStorage.js"></script>
+
+    <!--카카오 로그인-->
+    <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!--네이버 로그인-->
+    <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+        charset="utf-8"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+
+</head>
+
+<style>
+    @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+    body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        font-size: 16px;
+        background: #fff;
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #000000;
+        border-bottom: 4px solid transparent;
+        height: 94px;
+    }
+
+    header ul {
+        display: flex;
+        margin-left: 280px;
+        transform: translateY(4px);
+    }
+
+    header ul li {
+        list-style: none;
+        margin-right: 40px;
+        margin-top: 20px;
+    }
+
+    header ul li a {
+        color: #fff;
+        font-size: 1.6em;
+        font-weight: bold;
+        font-family: 'Secular One', sans-serif;
+        text-decoration: none;
+    }
+
+    header ul li:hover a {
+        color: #C0C0C0;
+        border-bottom: 3px solid #C0C0C0;
+    }
+
+    header .mainlogo {
+        margin-top: 6px;
+    }
+
+    header .mobile_button i {
+        margin-right: 50px;
+        color: #000;
+        display: none;
+    }
+
+    /*모바일 메뉴*/
+    .mobile_menu {
+        display: none;
+    }
+
+    /*모바일 버튼*/
+    .mobile_button {
+        display: none;
+    }
+
+    /*로그인*/
+    .container {
+        position: relative;
+        width: 100%;
+        height: 800px;
+    }
+
+    .col-md-8 {
+        /* 로그인 컨텐츠 전체*/
+        width: 600px;
+        position: absolute;
+        left: 50%;
+        top: 60%;
+        transform: translate(-50%, -60%);
+    }
+
+    .mb-4 p {
+        /*LOG IN*/
+        font-size: 3.5em;
+        font-family: 'Noto Sans KR', sans-serif;
+        font-weight: 700;
+        color: #000;
+        text-align: left;
+    }
+
+    #input-username {
+        margin-bottom: 30px;
+        border: 1px solid #C0C0C0;
+        font-size: 16px;
+    }
+
+    #input-password {
+        margin-bottom: 30px;
+        border: 1px solid #C0C0C0;
+        font-size: 16px;
+    }
+
+    .loginbtn {
+        /*로그인 버튼*/
+        height: 60px;
+        background: #000;
+        color: #fff;
+        font-size: 1.1em;
+    }
+
+    .loginbtn:hover {
+        background: #fff;
+        border: 1px solid #000;
+        color: #000;
+    }
+
+    .mt-5 p {
+        /*회원가입 텍스트*/
+        font-size: 14px;
+        color: #000;
+        text-align: right;
+        margin-top: -25px;
+    }
+
+    .mt-5 a {
+        /*회원가입 창으로 넘어가기*/
+        color: #000;
+        margin-left: 6px;
+    }
+
+    .mt-5 a:hover {
+        color: #C0C0C0;
+    }
+
+    input#remember-check {
+        display: none;
+    }
+
+    .form-check-label {
+        margin-left: -18px;
+    }
+
+    /* label:before에 체크하기 전 상태 CSS */
+    input#remember-check+label:before {
+        margin-right: 10px;
+        content: "";
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border: 2px solid #d6d5d5;
+        vertical-align: middle;
+    }
+
+    /* label:before에 체크 된 상태 CSS */
+    input#remember-check:checked+label:before {
+        content: "";
+        border: 2px solid #000;
+        background: url(image/check_img_01.png)no-repeat;
+        background-size: 11px;
+        background-position: 50%;
+    }
+
+    .search_info {
+        /*아이디,비번 찾기*/
+        width: 220px;
+        height: 30px;
+        line-height: 30px;
+        position: relative;
+        top: -163px;
+        left: 385px;
+        cursor: pointer;
+    }
+
+    .search_info p:nth-child(1) {
+        width: 100px;
+        text-align: center;
+        float: left;
+        font-size: 14px;
+    }
+
+    .search_info p:nth-child(2) {
+        width: 100px;
+        text-align: center;
+        float: left;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .search_info p:hover {
+        color: #C0C0C0;
+    }
+
+
+    .sns_wrap {
+        /*sns 로그인 전체*/
+        width: 580px;
+        height: 180px;
+        margin-top: 10px;
+    }
+
+    .sns_wrap .sns_login_text {
+        /*sns으로 로그인하기 텍스트*/
+        font-size: 1.1em;
+        color: #000;
+        position: relative;
+        left: 20px;
+        height: 30px;
+        line-height: 30px;
+    }
+
+    .sns_wrap .sns_icon {
+        /*로그인 버튼 wrap*/
+        height: 100px;
+        border-top: 1px solid #C0C0C0;
+        border-bottom: 1px solid #C0C0C0;
+        position: relative;
+    }
+
+    .sns_wrap #kakao_custon_login_btn {
+        /*카카오 버튼*/
+        margin-left: 100px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
+
+    .sns_wrap #naver_id_login {
+        /*네이버 버튼*/
+        margin-right: 100px;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .sns_wrap .center_border {
+        width: 290px;
+        height: 50px;
+        border-right: 1px solid #C0C0C0;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    /**********미디어 쿼리**********/
+    @media screen and (max-width:768px) {
+        header {
+            background: #000;
+            flex-direction: column;
+            width: 100%;
+            height: 90px;
+            position: relative;
+        }
+
+        header .mainlogo {
+            display: none;
+        }
+
+        /*모바일 로고*/
+        header .mobile_img {
+            background: url("image/logo_white.png")no-repeat;
+            width: 300px;
+            height: 40px;
+            background-size: contain;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        header ul {
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            margin-top: -8px;
+            display: none;
+        }
+
+        header ul li {
+            width: 90%;
+            margin-bottom: 8px;
+            margin-right: 40px;
+            text-align: center;
+        }
+
+        header ul li a {
+            color: #fff;
+        }
+
+        .mainimg {
+            background-size: cover;
+        }
+
+        header .mobile_button {
+            color: #fff;
+            display: block;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 30px;
+            cursor: pointer;
+        }
+
+        header ul li:hover {
+            background: #C0C0C0;
+        }
+
+        header ul li:hover a {
+            color: #000;
+        }
+
+        header ul.active {
+            display: flex;
+        }
+
+        /*모바일 메뉴*/
+        .mobile_menu {
+            width: 100%;
+            height: 100%;
+            display: block;
+            z-index: 500;
+            background: #fff;
+            position: fixed;
+            top: 0;
+            left: -100%;
+            transition: all .5s;
+        }
+
+        .navmenu {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /*모바일 메뉴 안 로고*/
+        .navlogo {
+            position: absolute;
+            top: 28px;
+        }
+
+        .mobile_menu li {
+            list-style: none;
+            text-align: center;
+            margin-bottom: 45px;
+            margin-right: 30px;
+        }
+
+        .mobile_menu li a {
+            color: #000;
+            text-decoration: none;
+            font-size: 1.6rem;
+            font-weight: bold;
+            font-family: 'Secular One', sans-serif;
+        }
+
+        /*닫기*/
+        .mobile_close_btn {
+            color: #000;
+            text-align: center;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            left: 35px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .mobile_close_btn:hover {
+            color: #C0C0C0;
+        }
+
+        .mobile_menu li a:hover {
+            color: #C0C0C0;
+            border-bottom: 3px solid #C0C0C0;
+        }
+
+        /*인스타그램 아이콘*/
+        .mobile_menu .sns_icon {
+            color: #000;
+            position: absolute;
+            bottom: 50px;
+        }
+
+        .mobile_menu a i:hover {
+            color: #C0C0C0;
+        }
+
+        /*LOGIN*/
+        .mb-4 p {
+            font-size: 2.5em;
+        }
+
+        /*로그인 컨텐츠 전체*/
+        .text-center {
+            width: 550px;
+        }
+
+        /*회원정보 input*/
+        #input-username {
+            font-size: 15px;
+        }
+
+        input#input-username+label {
+            font-size: 14px;
+        }
+
+        #input-password {
+            font-size: 15px;
+        }
+
+        input#input-password+label {
+            font-size: 14px;
+        }
+
+        /*로그인 버튼*/
+        .loginbtn {
+            font-size: 15px;
+        }
+
+        /*아이디 비밀번호 기억하기*/
+        .search_info {
+            margin-left: -60px;
+        }
+
+        /*회원가입*/
+        .mt-5 {
+            margin-left: -30px;
+        }
+
+        /*sns로 로그인하기 텍스트*/
+        #sns_loginTxt {
+            font-size: 16px;
+            transform: translateX(5%);
+        }
+
+        /*sns으로 로그인 아이콘*/
+        .sns_icon {
+            width: 510px;
+        }
+
+        /*가운데 선*/
+        .center_border {
+            margin-left: -40px;
+        }
+
+    }
+</style>
+
+<body>
+    <header>
+        <a href="#" onclick="main_page_go_btn()"><img src="image/logo_white_02.png" height="80px" class="mainlogo"></a>
+
+        <div class="mobile_img"></div>
+
+        <ul>
+            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="magazine.html">MAGAZINE</a></li>
+            <li><a href="shop.html">SHOP</a></li>
+            <li><a href="cart.html">CART</a></li>
+            <li><a href="#" onclick="board_go_btn()">Q&A</a></li>
+            <li><a href="#" onclick="mypage_go_btn()">MYPAGE</a></li>
+        </ul>
+
+        <div class="mobile_button">
+            <img src="image/mobile_button-white.png" width="50px">
+            <!--아이콘 크기 2배로 : fa-2x -->
+        </div>
+    </header>
+
+    <!--모바일 메뉴-->
+    <section class="mobile_menu">
+        <nav class="navmenu">
+            <ul>
+                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="magazine.html">MAGAZINE</a></li>
+                <li><a href="shop.html">SHOP</a></li>
+                <li><a href="cart.html">CART</a></li>
+                <li><a href="#" onclick="board_go_btn()">Q&A</a></li>
+                <li><a href="#" onclick="mypage_go_btn()">MYPAGE</a></li>
+            </ul>
+
+            <p class="mobile_close_btn"><img src="image/close_btn.png" width="50px"></p>
+            <a href="https://www.instagram.com/beattitude.kr/" class="sns_icon"><i
+                    class="fa-brands fa-instagram fa-2x"></i></a>
+
+            <img src="image/logo_mobile.png" width="300px" class="navlogo">
+        </nav>
+    </section>
+
+    <div class="container">
+        <div class="d-flex flex-column min-vh-100 px-3 pt-4">
+            <div class="row justify-content-center my-auto">
+                <div class="col-md-8 col-lg-6 col-xl-4">
+
+                    <div class="mb-4">
+                        <p>LOG IN</p>
+                    </div>
+
+                    <div class="form-floating form-floating-custom mb-3">
+                        <input type="text" class="form-control" id="input-username" placeholder="Enter User Name">
+                        <label for="input-username">아이디</label>
+                        <div class="form-floating-icon">
+                            <i class="uil uil-users-alt"></i>
+                        </div>
+                    </div>
+                    <div class="form-floating form-floating-custom mb-3">
+                        <input type="password" class="form-control" id="input-password" placeholder="Enter Password">
+                        <label for="input-password">비밀번호</label>
+                        <div class="form-floating-icon">
+                            <i class="uil uil-padlock"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-check form-check-info font-size-16">
+                        <input class="form-check-input" type="checkbox" id="remember-check" onclick="remeberBtn()">
+                        <label class="form-check-label font-size-14" for="remember-check">
+                            아이디 기억하기
+                        </label>
+                    </div>
+
+                    <div class="mt-3">
+                        <button class="loginbtn w-100" type="submit" onclick="login_btn()">로그인</button>
+                    </div>
+
+                    <div class="mt-5 text-center text-muted">
+                        <p><a href="signup.html" class="fw-medium text-decoration-underline">회원가입</a></p>
+                    </div>
+
+                    <div class="search_info">
+                        <p id="search_id" onclick="id_find_btn()">아이디 찾기&nbsp;&nbsp;|</p>
+                        <p id="search_pw" onclick="pw_fint_btn()">비밀번호 찾기</p>
+                    </div>
+
+                    <!--sns으로 로그인하기 카카오,네이버 로그인 api-->
+                    <section class="sns_wrap">
+                        <p class="sns_login_text" id="sns_loginTxt">sns로 로그인하기</p>
+
+                        <div class="sns_icon">
+                            <div class="center_border"></div>
+
+                            <!--카카오 로그인-->
+                            <img src="image/kakao_login_btn.png" id="kakao_custon_login_btn" width="60px">
+                            <div id="result" style="display:none"></div>
+
+                            <!--네이버 로그인-->
+                            <div id="naver_id_login"></div>
+                        </div>
+                    </section>
+
+                </div>
+            </div><!-- end col -->
+        </div><!-- end row -->
+
+
+
+    </div>
+    </div><!--end container-- >
+       
+            
+
+    <!--JAVASCRIPT-->
+    <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/libs/metismenujs/metismenujs.min.js"></script>
+    <script src="assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="assets/libs/feather-icons/feather.min.js"></script>
+
+    <script>
+        // 모바일 크기 버튼 클릭 시 메뉴 나타나게 하기 
+        let toggleBtn = document.querySelector('.mobile_button');
+        let mobileMenu = document.querySelector('.mobile_menu');
+        let mobileClose_btn = document.querySelector('.mobile_close_btn');
+
+        toggleBtn.addEventListener('click', () => {
+            mobileMenu.style.left = '0px';
+            document.body.style.overflowY = 'hidden';
+        })
+
+        mobileClose_btn.addEventListener('click', () => {
+            mobileMenu.style.left = '-100%';
+            document.body.style.overflowY = 'visible';
+        })
+
+        // 아이디 기억하기   
+        function remeberBtn() {
+            let logoinChcek = document.getElementById('remember-check'); // 체크박스 아이디값 가져오기
+            let remeber_Btn = logoinChcek.checked; // 체크박스가 체크여부를 변수에 넣어줌
+
+            if (remeber_Btn == true) { // 체크박스가 체크됐을 경우 
+                Object.keys(localStorage).forEach((key) => { // 로컬 key값을 가져옴 
+
+                    if (key.includes('signup_')) { // key가 'signup_'를 포함할 경우
+                        let signupData = JSON.parse(localStorage.getItem(key)); // key값을 변수에 넣어줌
+                        for (let i = 0; i < signupData.length; i++) {
+                            setCookie('id_remember', signupData[i].id, 30); // 아이디를 저장하는 쿠키를 생성  
+                        }
+
+                        document.getElementById('input-username').value = getCookie('id_remember'); // 쿠키에서 가져온 아이디값을 아이디 input에 넣어줌 
+                    }
+                });
+            }
+        }
+
+        // input 이벤트 : 값이 있을때 border color 변경 
+        let inputId = document.getElementById('input-username');
+        let inputPw = document.getElementById('input-password');
+
+        inputId.addEventListener('input', function (e) {
+            inputId.style.borderColor = '#000';
+        })
+
+        inputId.addEventListener('input', function (e) {
+            if (inputId.value == '') {
+                inputId.style.borderColor = '#C0C0C0';
+            }
+
+        })
+
+        inputPw.addEventListener('input', function (e) {
+            inputPw.style.borderColor = '#000';
+        })
+
+        inputPw.addEventListener('input', function (e) {
+            if (inputPw.value == '') {
+                inputPw.style.borderColor = '#C0C0C0';
+            }
+        })
+
+        ////////// 카카오 로그인//////////
+        Kakao.init('63a860cf27546ddabfdcd62ca8f3c2ed');
+        console.log(Kakao.isInitialized());
+
+        Kakao.Auth.createLoginButton({
+            container: '#kakao_custon_login_btn',
+            success: function (authObj) {
+                Kakao.API.request({
+                    url: '/v2/user/me',
+                    success: function (result) {
+                        $('#result').append(result);
+                        id = result.id
+                        connected_at = result.connected_at
+                        kakao_account = result.kakao_account
+                        properties = result.properties
+                        console.log(kakao_account)
+                        $('#result').append(kakao_account);
+
+                        /*
+                        // 카카오 로그인 성공 시 로컬 생성  
+                        const signupSave = [{
+                            id: kakao_account.email,
+                            userName: properties.nickname,
+                            number: id,
+                        }];
+
+                        let localData = signupData_sns();
+                        localStorage.setItem("signup_" + localData, JSON.stringify(signupSave));
+                        */
+
+                        // 카카오 로그인 성공 시 쿠키 생성  
+                        setCookie("idsave", kakao_account.email, 30); // 쿠키 값 생성 (로그인 된 것을 확인하기 위함)
+
+                        alert('로그인 되었습니다.');
+                        location.href = 'main_page_login.html'; // 메인 페이지로 이동
+
+                        if (typeof kakao_account != 'undefined') {
+                            email = kakao_account.email;
+                            gender = kakao_account.gender;
+                        }
+                        resultdiv += '<h4>email: ' + email + '<h4>'
+                        resultdiv += '<h4>gender: ' + gender + '<h4>'
+                        $('#result').append(resultdiv);
+
+                    },
+                    fail: function (error) {
+                        alert(
+                            'login success, but failed to request user information: ' +
+                            JSON.stringify(error)
+                        )
+                    },
+                })
+            },
+            fail: function (err) {
+                alert('failed to login: ' + JSON.stringify(err))
+            },
+        })
+
+
+        //////////네이버 로그인//////////
+        var naver_id_login = new naver_id_login("1unGrvjvJKXzMl8aMUwR", "http://127.0.0.1:5500/naver_login.html");
+        var state = naver_id_login.getUniqState();
+        naver_id_login.setButton("green", 1, 50);
+        naver_id_login.setDomain("http://127.0.0.1:5500/signin.html");
+        naver_id_login.setState(state);
+        naver_id_login.setPopup();
+        naver_id_login.init_naver_id_login();
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메인페이지-로그인</title>
+    <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/b2aa32177b.js" crossorigin="anonymous"></script>
+
+    <script src="js/sessionStorage.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/cookie.js"></script>
+    <script defer src="js/slide.js"></script>
+</head>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    .topbanner {
+        width: 100%;
+        height: 43px;
+        background: #000;
+        position: relative;
+    }
+
+    .topbanner #topbannerText {
+        color: #fff;
+        display: block;
+        width: 100%;
+        height: 43px;
+        text-align: center;
+        line-height: 43px;
+    }
+
+    .topbanner #topbannerText span a {
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .topbanner img {
+        z-index: 99;
+        position: absolute;
+        width: 15px;
+        right: 10px;
+        top: 15px;
+        cursor: pointer;
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 4px solid #000;
+        height: 90px;
+    }
+
+    header ul {
+        display: flex;
+        margin-left: 300px;
+    }
+
+    header ul li {
+        list-style: none;
+        margin-right: 40px;
+    }
+
+    header ul li:hover a {
+        color: #C0C0C0;
+        border-bottom: 3px solid #C0C0C0;
+    }
+
+    header ul li a {
+        text-decoration: none;
+        color: #000;
+        font-size: 1.6rem;
+        font-weight: bold;
+        font-family: 'Secular One', sans-serif;
+    }
+
+    header .mainlogo {
+        margin-top: 6px;
+    }
+
+    .mobile_button {
+        margin-right: 50px;
+        display: none;
+    }
+
+    .mobile_menu {
+        display: none;
+    }
+
+    /**********슬라이드**********/
+    .slide {
+        /* layout */
+        display: flex;
+        flex-wrap: nowrap;
+        /* 컨테이너의 내용물이 컨테이너 크기(width, height)를 넘어설 때 보이지 않도록 하기 위해 hidden을 준다. */
+        overflow: hidden;
+
+        /* position */
+        /* slide_button의 position absolute가 컨테이너 안쪽에서 top, left, right offset이 적용될 수 있도록 relative를 준다. (기본값이 static인데, static인 경우 그 상위 컨테이너로 나가면서 현재 코드에선 html을 기준으로 offset을 적용시키기 때문) */
+        position: relative;
+
+        /* size */
+        width: 100%;
+
+        /* slide drag를 위해 DOM요소가 드래그로 선택되는것을 방지 */
+        user-select: none;
+    }
+
+    .slide_item {
+        /* layout */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        /* position - 버튼 클릭시 left offset값을 적용시키기 위해 */
+        position: relative;
+        left: 0px;
+
+        /* size */
+        width: 100%;
+        height: 700px;
+        /* flex item의 flex-shrink는 기본값이 1이므로 컨테이너 크기에 맞게 줄어드는데, 슬라이드를 구현할 것이므로 줄어들지 않도록 0을 준다. */
+        flex-shrink: 0;
+
+        /* transition */
+        transition: left 0.15s;
+
+        cursor: pointer;
+
+    }
+
+    /*상단 배너를 닫기 위해 복사*/
+    .slide_item_close {
+        /* layout */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        /* position - 버튼 클릭시 left offset값을 적용시키기 위해 */
+        position: relative;
+        left: 0px;
+
+        /* size */
+        width: 100%;
+        height: 758px;
+        /* flex item의 flex-shrink는 기본값이 1이므로 컨테이너 크기에 맞게 줄어드는데, 슬라이드를 구현할 것이므로 줄어들지 않도록 0을 준다. */
+        flex-shrink: 0;
+
+        /* transition */
+        transition: left 0.15s;
+
+        cursor: pointer;
+
+    }
+
+    .slide_button {
+        /* layout */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        /* position */
+        position: absolute;
+        /* 버튼이 중앙에 위치하게 하기위해 계산 */
+        top: calc(50% - 16px);
+
+        /* size */
+        width: 32px;
+        height: 32px;
+
+        /* style */
+        cursor: pointer;
+    }
+
+    .slide_prev_button {
+        left: 10px;
+    }
+
+    .slide_next_button {
+        right: 10px;
+    }
+
+    /* 각 슬라이드가 변경되는 것을 시각적으로 확인하기 쉽도록 각 슬라이드별 색상 적용 */
+    .item1 {
+        background: url(image/bg_01.jpeg)no-repeat;
+        background-size: 100%;
+    }
+
+    .item2 {
+        background: url(image/bg_02.jpeg)no-repeat;
+        background-size: 100%;
+    }
+
+    .item3 {
+        background: url(image/bg_03.jpeg)no-repeat;
+        background-size: 100%;
+    }
+
+    .item4 {
+        background: url(image/bg_04.jpeg)no-repeat;
+        background-size: 100%;
+    }
+
+    .item5 {
+        background: url(image/bg_05.jpeg)no-repeat;
+        background-size: 100%;
+    }
+
+    /* 페이지네이션 스타일 */
+    ul,
+    li {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .slide_pagination {
+        /* layout */
+        display: flex;
+        gap: 5px;
+
+        /* position */
+        position: absolute;
+        bottom: 0;
+        /* left:50%, translateX(-50%)를 하면 가로 가운데로 위치시킬 수 있다. */
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .slide_pagination>li {
+        /* 현재 슬라이드가 아닌 것은 투명도 부여 */
+        color: #999999;
+        cursor: pointer;
+        font-size: 40px;
+        margin-bottom: 35px;
+        margin-right: 10px;
+    }
+
+    .slide_pagination>li.active {
+        /* 현재 슬라이드 색상은 투명도 없이 */
+        color: #333333;
+    }
+
+    .slide_item_duplicate {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        left: 0px;
+        width: 100%;
+        height: 300px;
+        flex-shrink: 0;
+        transition: left 0.15s;
+    }
+
+    .mobile_slide {
+        display: none;
+    }
+
+    /*움직이는 텍스트*/
+    MARQUEE {
+        height: 77px;
+        line-height: 77px;
+        border-top: 4px solid #000;
+        font-size: 5em;
+        font-family: 'Secular One', sans-serif;
+        padding-top: 5px;
+        box-sizing: border-box;
+    }
+
+    MARQUEE span {
+        color: #fff;
+        -webkit-text-stroke: 2px #000;
+    }
+
+    /*팝업 이미지*/
+    #modal .modal-window {
+        background: url(image/popup.jpeg)no-repeat;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(13.5px);
+        -webkit-backdrop-filter: blur(13.5px);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        width: 380px;
+        height: 350px;
+        position: absolute;
+        top: 180px;
+        left: 100px;
+        padding: 10px;
+        background-size: 100% 80%;
+        display: none;
+    }
+
+    #modal .close-area {
+        width: 188px;
+        height: 72px;
+        background: #fff;
+        display: inline;
+        float: right;
+        padding-right: 11px;
+        margin-top: 286px;
+        margin-right: -11px;
+        cursor: pointer;
+        border-bottom-right-radius: 10px;
+        border: 2px solid lightgray;
+    }
+
+    #modal .close-area:hover {
+        background: lightgray;
+        color: #fff;
+    }
+
+    #modal .close-area p {
+        display: block;
+        width: 188px;
+        height: 74px;
+        text-align: center;
+        line-height: 73px;
+        margin: 0;
+    }
+
+    #modal #close-area-day {
+        width: 188px;
+        height: 72px;
+        background: #fff;
+        display: inline;
+        float: left;
+        padding-right: 11px;
+        margin-top: -76px;
+        margin-left: -11.9px;
+        cursor: pointer;
+        border-bottom-left-radius: 10px;
+        border: 2px solid lightgray;
+    }
+
+    #modal #close-area-day:hover {
+        background: lightgray;
+        color: #fff;
+    }
+
+    #modal #close-area-day p {
+        display: block;
+        width: 188px;
+        height: 74px;
+        text-align: center;
+        line-height: 73px;
+        margin: 0;
+    }
+
+    /**********미디어 쿼리**********/
+    @media screen and (max-width:768px) {
+        .topbanner img {
+            display: none;
+        }
+
+        header {
+            flex-direction: column;
+            width: 100%;
+            height: 90px;
+            position: relative;
+        }
+
+        header .mainlogo {
+            display: none;
+        }
+
+        /*모바일 세 줄 버튼*/
+        .mobile_button {
+            display: block;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 30px;
+            cursor: pointer;
+        }
+
+        /*모바일 로고*/
+        header .mobile_img {
+            background: url(image/logo_mobile.png)no-repeat;
+            width: 300px;
+            height: 40px;
+            background-size: contain;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        header ul {
+            width: 80%;
+            display: none;
+        }
+
+        /*토글 버튼*/
+        header ul.active {
+            display: flex;
+        }
+
+        .slide {
+            display: none;
+            height: 350px;
+        }
+
+        .slide img {
+            display: none;
+        }
+
+        /*모바일 메뉴*/
+        .mobile_menu {
+            width: 100%;
+            height: 100%;
+            display: block;
+            position: absolute;
+            z-index: 500;
+            bottom: 1px;
+            background: #fff;
+            left: -100%;
+            transition: all .5s;
+        }
+
+        .navmenu {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /*모바일 메뉴 안 로고*/
+        .navlogo {
+            position: absolute;
+            top: 90px;
+        }
+
+        .navmenu li {
+            list-style: none;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .navmenu li a {
+            color: #000;
+            text-decoration: none;
+            font-size: 1.6rem;
+            font-weight: bold;
+            font-family: 'Secular One', sans-serif;
+        }
+
+        /*닫기*/
+        .mobile_close_btn {
+            color: #000;
+            text-align: center;
+            cursor: pointer;
+            position: absolute;
+            top: 65px;
+            left: 35px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .mobile_close_btn:hover {
+            color: #C0C0C0;
+        }
+
+        .mobile_menu li a:hover {
+            color: #C0C0C0;
+            border-bottom: 3px solid #C0C0C0;
+        }
+
+        /*인스타그램 아이콘*/
+        .mobile_menu .sns_icon {
+            color: #000;
+            position: absolute;
+            bottom: 50px;
+        }
+
+        .mobile_menu a i:hover {
+            color: #C0C0C0;
+        }
+
+        /*모바일 슬라이드*/
+        .mobile_slide {
+            display: block;
+            width: 100%;
+        }
+
+        .mobile_slide .mobile_bg {
+            width: 100%;
+            height: 700px;
+            display: none;
+        }
+
+        .mobile_slide .mobile_bg.on {
+            display: block;
+        }
+
+        /*모달 팝업*/
+        #modal .modal-window {
+            width: 280px;
+            height: 300px;
+        }
+
+        #modal .close-area {
+            width: 140px;
+            font-size: 0.8em;
+            position: relative;
+            top: -40px;
+        }
+
+        #modal .close-area p {
+            display: inline;
+            position: relative;
+            left: 50%;
+        }
+
+        #modal #close-area-day {
+            width: 140px;
+            font-size: 0.8em;
+            position: relative;
+            top: -40px;
+        }
+
+        #modal #close-area-day p {
+            display: inline;
+            position: relative;
+            left: 13%;
+        }
+
+        /*움직이는 텍스트*/
+        MARQUEE {
+            position: absolute;
+            bottom: 0;
+        }
+
+    }
+</style>
+
+<body>
+    <section class="topbanner">
+        <p id="topbannerText">회원가입시 2000원 쿠폰 지급 <span><a href="signup.html">가입하기</a></span></p>
+        <img src="image/close_btn_white.png" onclick="closeButton()">
+    </section>
+
+    <header>
+        <a href="main_page_login.html"><img src="image/logo.png" height="80px" class="mainlogo"></a>
+
+        <div class="mobile_img" onclick="main_page_go_btn()"></div>
+
+        <ul>
+            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="magazine.html">MAGAZINE</a></li>
+            <li><a href="shop.html">SHOP</a></li>
+            <li><a href="cart.html">CART</a></li>
+            <li><a href="#" onclick="logout_go_btn()">LOGOUT</a></li>
+            <li><a href="#" onclick="board_go_btn()">Q&A</a></li>
+            <li><a href="#" onclick="mypage_go_btn()">MYPAGE</a></li>
+        </ul>
+
+        <div class="mobile_button">
+            <img src="image/mobile_button.png" width="50px">
+            <!--<i class="fa-solid fa-bars fa-2x">dfd</i>-->
+            <!--아이콘 크기 2배로 : fa-2x -->
+        </div>
+    </header>
+
+    <!--모바일 메뉴-->
+    <section class="mobile_menu">
+        <nav class="navmenu">
+            <ul>
+                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="magazine.html">MAGAZINE</a></li>
+                <li><a href="shop.html">SHOP</a></li>
+                <li><a href="cart.html">CART</a></li>
+                <li><a href="#" onclick="logout_go_btn()">LOGOUT</a></li>
+                <li><a href="#" onclick="board_go_btn()">Q&A</a></li>
+                <li><a href="#" onclick="mypage_go_btn()">MYPAGE</a></li>
+            </ul>
+
+            <p class="mobile_close_btn"><img src="image/close_btn.png" width="50px"></p>
+            <a href="https://www.instagram.com/beattitude.kr/" class="sns_icon"><i
+                    class="fa-brands fa-instagram fa-2x"></i></a>
+
+            <img src="image/logo_mobile.png" width="300px" class="navlogo">
+        </nav>
+    </section>
+
+    <!--슬라이드-->
+    <div class="slide slide_wrap">
+        <div class="slide_item item1"></div>
+        <div class="slide_item item2"></div>
+        <div class="slide_item item3"></div>
+        <div class="slide_item item4"></div>
+        <div class="slide_item item5"></div>
+
+        <div class="slide_prev_button slide_button">
+            <img src="image/arrow_left.png">
+        </div>
+
+        <div class="slide_next_button slide_button">
+            <img src="image/arrow_right.png">
+        </div>
+
+        <ul class="slide_pagination"></ul>
+    </div>
+
+    <!-- 움직이는 텍스트 -->
+    <MARQUEE>EXPLORE YOUR ARTISTIC <span>LIFESTYLE B(A)</span>&nbsp;&nbsp;EXPLORE YOUR ARTISTIC <span>LIFESTYLE
+            B(A)</span>
+        &nbsp;&nbsp;EXPLORE YOUR ARTISTIC <span>LIFESTYLE B(A)</span>&nbsp;&nbsp;EXPLORE YOUR ARTISTIC <span>LIFESTYLE
+            B(A)</span>
+        &nbsp;&nbsp;EXPLORE YOUR ARTISTIC <span>LIFESTYLE B(A)</span>&nbsp;&nbsp;EXPLORE YOUR ARTISTIC <span>LIFESTYLE
+            B(A)</span>
+    </MARQUEE>
+
+    <!--모달 팝업-->
+    <div id="modal" class="modal-overlay">
+        <div class="modal-window">
+
+            <div class="close-area">
+                <p>닫기</p>
+            </div>
+
+            <div id="close-area-day" class="close_oneDay">
+                <p>오늘 하루 열지 않기</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!--모바일 슬라이드-->
+    <section class="mobile_slide">
+        <img src="image/bg_01.jpeg" class="mobile_bg">
+        <img src="image/bg_02.jpeg" class="mobile_bg">
+        <img src="image/bg_03.jpeg" class="mobile_bg">
+        <img src="image/bg_04.jpeg" class="mobile_bg">
+        <img src="image/bg_05.jpeg" class="mobile_bg">
+    </section>
+
+
+    <script>
+        /*
+        let menu = document.querySelector('header ul');
+
+        toggleBtn.addEventListener('click', () => {
+            menu.classList.toggle('active');
+        });
+        */
+
+        // 모바일 크기 버튼 클릭 시 메뉴 나타나게 하기 
+        let toggleBtn = document.querySelector('.mobile_button');
+        let mobileMenu = document.querySelector('.mobile_menu');
+        let mobileClose_btn = document.querySelector('.mobile_close_btn');
+
+        toggleBtn.addEventListener('click', () => {
+            mobileMenu.style.left = '0px';
+        })
+
+        mobileClose_btn.addEventListener('click', () => {
+            mobileMenu.style.left = '-100%';
+        })
+
+
+        // 모달 팝업  
+        const modal = document.getElementById('modal');
+        const btnModal = document.getElementById('btn-modal');
+
+        // 버튼 누르면 창이 꺼지게 함 
+        const closeBtn = modal.querySelector('.close-area');
+        closeBtn.addEventListener('click', e => {
+            modal.style.display = 'none';
+        })
+
+        // 상단 배너 닫기
+        function closeButton() {
+            let banner = document.querySelector('.topbanner'); // 배너
+            let slideItems = document.querySelectorAll('.slide_item'); // 슬라이드 전체
+
+            banner.style.display = 'none'; // 배너 닫아줌
+
+            for (let i = 0; i < slideItems.length; i++) {
+                slideItems[i].className = slideItems[i].className.replace('slide_item', 'slide_item_close');
+                // slide_item -> slide_item_close 변경 
+            }
+
+        }
+
+        // 모달 팝업 오늘 하루 열지 않기
+        let modal_overlay = document.querySelector(".modal-overlay");
+        let modal_window = document.querySelector(".modal-window");
+
+        // 'modal' 쿠키가 없으면 모달 팝업을 노출시킴
+        if (!getCookie("modal")) {
+            modal_overlay.style.display = "block";
+            modal_window.style.display = "block";
+        }
+
+        // '오늘 하루 열지 않기' 버튼 클릭 시 하루 동안 유지되는 'modal' 쿠키를 설정
+        let closeOneDay = document.querySelector(".close_oneDay");
+        closeOneDay.addEventListener("click", (e) => {
+            setCookie("modal", "close_oneDay", 1);
+            modal.style.display = "none";
+        });
+
+        // 모바일 크기 슬라이드 
+        const mobileSlide = document.querySelectorAll('.mobile_bg');
+        let current = 0;
+
+        function showSlide() {
+            for (let i = 0; i < mobileSlide.length; i++) {
+                mobileSlide[i].classList.remove('on');
+            }
+            current++;
+            if (current > mobileSlide.length) {
+                current = 1;
+            }
+            mobileSlide[current - 1].classList.add('on');
+            setTimeout(showSlide, 2000);
+        }
+
+        showSlide();
+
+    </script>
+</body>
+
+</html>

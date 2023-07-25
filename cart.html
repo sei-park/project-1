@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cart</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/b2aa32177b.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="js/sessionStorage.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/cookie.js"></script>
+</head>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;900&display=swap');
+    /*text 모션 폰트*/
+    @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+    body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #000000;
+        border-bottom: 4px solid transparent;
+        height: 90px;
+    }
+
+    header ul {
+        display: flex;
+        margin-left: 280px;
+        transform: translateY(4px);
+    }
+
+    header ul li {
+        list-style: none;
+        margin-right: 40px;
+    }
+
+    header ul li a {
+        color: #fff;
+        font-size: 1.6em;
+        font-weight: bold;
+        font-family: 'Secular One', sans-serif;
+        text-decoration: none;
+    }
+
+    header ul li:hover a {
+        color: #C0C0C0;
+        border-bottom: 3px solid #C0C0C0;
+    }
+
+    header .mainlogo {
+        margin-top: 6px;
+    }
+
+    header .mobile_button i {
+        margin-right: 50px;
+        color: #000;
+        display: none;
+    }
+
+    /*모바일 메뉴*/
+    .mobile_menu {
+        display: none;
+    }
+
+    /*모바일 버튼*/
+    .mobile_button {
+        display: none;
+    }
+
+    table {
+        position: absolute;
+        left: 50%;
+        top: 38%;
+        transform: translate(-50%, -50%);
+        border-collapse: collapse;
+        /* table 테두리와 td의 테두리 사이의 간격을 없앰. 겹치는 부분은 한 줄로 나타냄*/
+        border-spacing: 0;
+        cursor: pointer;
+    }
+
+    th,
+    td {
+        padding: 10px 20px;
+        /*border: 1px solid #d6d5d5;*/
+        border-left: none;
+        border-right: none;
+        height: 50px;
+    }
+
+    th {
+        border: 1px solid #000;
+        border-left: none;
+        border-right: none;
+    }
+
+    td:nth-child(5):hover {
+        color: #C0C0C0;
+    }
+
+    .headerTitle {
+        font-size: 2rem;
+        position: absolute;
+        left: 22%;
+        top: 25%;
+        transform: translate(-50%, -50%);
+        font-family: 'Noto Sans KR', sans-serif;
+        font-weight: 400;
+    }
+
+    img {
+        margin-top: 10px;
+    }
+
+    /*수량 버튼*/
+    .number_input {
+        width: 100px;
+        height: 20px;
+        border: 1px solid #373737;
+        transform: translate(50px, 0px);
+    }
+
+    /**********미디어 쿼리**********/
+    @media screen and (max-width:768px) {
+        header {
+            background: #000;
+            flex-direction: column;
+            width: 100%;
+            height: 90px;
+            position: relative;
+        }
+
+        header .mainlogo {
+            display: none;
+        }
+
+        /*모바일 로고*/
+        header .mobile_img {
+            background: url("image/logo_white.png")no-repeat;
+            width: 300px;
+            height: 40px;
+            background-size: contain;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        header ul {
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            margin-top: -8px;
+            display: none;
+        }
+
+        header ul li {
+            width: 90%;
+            margin-bottom: 8px;
+            margin-right: 40px;
+            text-align: center;
+        }
+
+        header ul li a {
+            color: #fff;
+        }
+
+        .mainimg {
+            background-size: cover;
+        }
+
+        header .mobile_button {
+            color: #fff;
+            display: block;
+            position: absolute;
+            top: 45%;
+            transform: translateY(-50%);
+            left: 30px;
+            cursor: pointer;
+        }
+
+        header ul li:hover {
+            background: #C0C0C0;
+        }
+
+        header ul li:hover a {
+            color: #000;
+        }
+
+        header ul.active {
+            display: flex;
+        }
+
+        /*모바일 메뉴*/
+        .mobile_menu {
+            width: 100%;
+            height: 100%;
+            display: block;
+            z-index: 500;
+            background: #fff;
+            position: fixed;
+            top: 0;
+            left: -100%;
+            transition: all .5s;
+        }
+
+        .navmenu {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /*모바일 메뉴 안 로고*/
+        .navlogo {
+            position: relative;
+            top: -410px;
+            transform: translateX(-59%);
+        }
+
+        .navmenu li {
+            list-style: none;
+            text-align: center;
+            margin-bottom: 25px;
+            margin-left: 328px;
+        }
+
+        .navmenu li a {
+            color: #000;
+            text-decoration: none;
+            font-size: 1.6rem;
+            font-weight: bold;
+            font-family: 'Secular One', sans-serif;
+        }
+
+        /*닫기*/
+        .mobile_close_btn {
+            position: relative;
+            left: -270px;
+            top: -410px;
+            cursor: pointer;
+        }
+
+        .mobile_close_btn:hover {
+            color: #C0C0C0;
+        }
+
+        .mobile_menu li a:hover {
+            color: #C0C0C0;
+            border-bottom: 3px solid #C0C0C0;
+        }
+
+        /*인스타그램 아이콘*/
+        .mobile_menu .sns_icon {
+            color: #000;
+            position: absolute;
+            bottom: 50px;
+        }
+
+        .mobile_menu a i:hover {
+            color: #C0C0C0;
+        }
+
+        /*테이블*/
+        /*상단 메인 텍스트*/
+        .headerTitle {
+            font-size: 1.5em;
+            position: absolute;
+            left: 12%;
+            top: 20%;
+        }
+
+        /*테이블 헤더*/
+        th:nth-child(1) {
+            position: relative;
+            right: 40px;
+            height: 80px;
+        }
+
+        th:nth-child(2) {
+            position: relative;
+            right: 70px;
+        }
+
+        th:nth-child(3) {
+            position: relative;
+            right: 50px;
+        }
+
+        th:nth-child(4) {
+            position: relative;
+            right: 30px;
+        }
+
+        th:nth-child(5) {
+            position: relative;
+            right: 0px;
+        }
+
+        /*테이블 상품 이미지*/
+        img {
+            position: relative;
+            left: -90px;
+        }
+
+        /*img를 옮기면 다른 img태그들고 옮겨지기 때문에 위치 변경*/
+        .mobile_button img {
+            position: relative;
+            left: 0;
+        }
+
+        /*상품명,가격,주문관리*/
+        td:nth-child(2) {
+            position: relative;
+            left: -70px;
+            font-size: 13px;
+        }
+
+        td:nth-child(3) {
+            position: relative;
+            left: -50px;
+            font-size: 13px;
+        }
+
+        td:nth-child(5) {
+            font-size: 13px;
+        }
+
+        .number_input {
+            width: 40px;
+            position: relative;
+            left: -80px;
+            font-size: 13px;
+        }
+
+    }
+</style>
+
+<body>
+    <header>
+        <a href="#" onclick="main_page_go_btn()"><img src="image/logo_white_02.png" height="80px" class="mainlogo"></a>
+
+        <div class="mobile_img" onclick="main_page_go_btn()"></div>
+
+        <ul>
+            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="magazine.html">MAGAZINE</a></li>
+            <li><a href="shop.html">SHOP</a></li>
+            <li><a href="cart.html">CART</a></li>
+            <li><a href="#" onclick="board_go_btn()">Q&A</a></li>
+            <li><a href="#" onclick="mypage_go_btn()">MYPAGE</a></li>
+        </ul>
+
+        <div class="mobile_button">
+            <img src="image/mobile_button-white.png" width="50px">
+            <!--아이콘 크기 2배로 : fa-2x -->
+        </div>
+    </header>
+
+    <!--모바일 메뉴-->
+    <section class="mobile_menu">
+        <nav class="navmenu">
+            <ul>
+                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="magazine.html">MAGAZINE</a></li>
+                <li><a href="shop.html">SHOP</a></li>
+                <li><a href="cart.html">CART</a></li>
+                <li><a href="#" onclick="board_go_btn()">Q&A</a></li>
+                <li><a href="#" onclick="mypage_go_btn()">MYPAGE</a></li>
+            </ul>
+
+            <p class="mobile_close_btn"><img src="image/close_btn.png" width="50px"></p>
+            <a href="https://www.instagram.com/beattitude.kr/" class="sns_icon"><i
+                    class="fa-brands fa-instagram fa-2x"></i></a>
+
+            <img src="image/logo_mobile.png" width="300px" class="navlogo">
+        </nav>
+    </section>
+
+
+    <section id="body">
+        <div class="headerTitle">CART</div>
+    </section>
+
+
+</body>
+
+<script>
+    // 모바일 크기 버튼 클릭 시 메뉴 나타나게 하기 
+    let toggleBtn = document.querySelector('.mobile_button');
+    let mobileMenu = document.querySelector('.mobile_menu');
+    let mobileClose_btn = document.querySelector('.mobile_close_btn');
+
+    toggleBtn.addEventListener('click', () => {
+        mobileMenu.style.left = '0px';
+        document.body.style.overflowY = 'hidden';
+    })
+
+    mobileClose_btn.addEventListener('click', () => {
+        mobileMenu.style.left = '-100%';
+        document.body.style.overflowY = 'visible';
+    })
+
+    // 태그 생성
+    let table = document.createElement("table");
+    let thead = document.createElement("thead");
+    let tbody = document.createElement("tbody");
+
+    // table에 thead,tbody 요소 추가
+    table.appendChild(thead);
+    table.appendChild(tbody);
+
+    // table요소 추가
+    document.getElementById("body").appendChild(table).style.width = "1200px";
+
+    // table에 데이터 추가
+    // tr,th,td 태그를 만들고 innerHTML 속성을 사용하여 내부에 데이터 추가
+
+    let row_1 = document.createElement("tr");
+
+    let heading_1 = document.createElement("th");
+    heading_1.innerHTML = "상품 이미지";
+
+    let heading_2 = document.createElement("th");
+    heading_2.innerHTML = "상품명";
+
+    let heading_3 = document.createElement("th");
+    heading_3.innerHTML = "가격";
+
+    let heading_4 = document.createElement("th");
+    heading_4.innerHTML = "수량"
+
+    let heading_5 = document.createElement("th");
+    heading_5.innerHTML = "주문관리"
+
+    // 각 요소를 추가해줌
+    row_1.appendChild(heading_1);
+    row_1.appendChild(heading_2);
+    row_1.appendChild(heading_3);
+    row_1.appendChild(heading_4);
+    row_1.appendChild(heading_5);
+
+    thead.appendChild(row_1).style.cssText =
+        "color:#000; height:80px; font-size:18px;"
+
+    // 장바구니 전체 삭제 버튼
+    let cart_delete = document.getElementById('cartDelete');
+
+    // 피라미터 가져오기
+    /*
+    const urlParams = new URL(location.href).searchParams;
+    const cart_01 = urlParams.get('cart01');
+    const cart_02 = urlParams.get('cart02'); 
+    */
+
+    // 테이블 만들기
+    let row_2 = '';
+    let row_2_data_1 = ''; // 상품 이미지
+    let row_2_data_2 = ''; // 상품명
+    let row_2_data_3 = ''; // 가격
+    let row_2_data_4 = ''; // 수량
+    let row_2_data_5 = ''; // 삭제하기
+
+    // 테이블 삭제하기
+    let cart_img = document.getElementById('preview');
+
+    function creatList() {
+        row_2 = document.createElement("tr");
+        row_2_data_1 = document.createElement("img");
+        row_2_data_2 = document.createElement("td");
+        row_2_data_3 = document.createElement("td");
+        row_2_data_4 = document.createElement("td");
+        row_2_data_5 = document.createElement("td");
+
+        // 수량 버튼
+        row_2_data_4.innerHTML = "<input type='number' min='1' value='1' class='number_input'>"
+
+        // 삭제하기 버튼
+        row_2_data_5.innerHTML = '삭제하기'
+
+        row_2.appendChild(row_2_data_1).style.marginLeft = "100px";
+        row_2.appendChild(row_2_data_2).style.textAlign = "center";
+        row_2.appendChild(row_2_data_3).style.textAlign = "center";
+        row_2.appendChild(row_2_data_4).style.marginLeft = '100px';
+        row_2.appendChild(row_2_data_5).style.textAlign = "center";
+        tbody.appendChild(row_2).style.cssText =
+            "border-bottom:1px solid #dddfd8;"
+
+        table.style.transform = 'translate(-50%, -10%)';
+    }
+
+    Object.keys(localStorage).forEach((key) => {
+        if (key == 'product_list') {
+            let productListData = JSON.parse(localStorage.getItem(key));
+
+            if (getCookie('cart01')) {
+                creatList();
+                row_2_data_1.src = 'image/product_img_01_cart.png';
+                row_2_data_2.innerHTML = productListData[0].product;
+                row_2_data_3.innerHTML = productListData[0].price;
+
+                row_2_data_5.addEventListener('click', () => {
+                    alert('상품을 삭제하시겠습니까?');
+                    deleteCookie('cart01');
+                    location.href = 'cart.html';
+                })
+            }
+
+            if (getCookie('cart02')) {
+                creatList();
+                row_2_data_1.src = 'image/product_img_02_cart.png';
+                row_2_data_2.innerHTML = productListData[1].product;
+                row_2_data_3.innerHTML = productListData[1].price;
+
+                row_2_data_5.addEventListener('click', () => {
+                    alert('상품을 삭제하시겠습니까?');
+                    deleteCookie('cart02');
+                    location.href = 'cart.html';
+                })
+            }
+
+            if (getCookie('cart03')) {
+                creatList();
+                row_2_data_1.src = 'image/product_img_03_cart.png';
+                row_2_data_2.innerHTML = productListData[2].product;
+                row_2_data_3.innerHTML = productListData[2].price;
+
+                row_2_data_5.addEventListener('click', () => {
+                    alert('상품을 삭제하시겠습니까?');
+                    deleteCookie('cart03');
+                    location.href = 'cart.html';
+                })
+            }
+
+            if (getCookie('cart04')) {
+                creatList();
+                row_2_data_1.src = 'image/product_img_04_cart.png';
+                row_2_data_2.innerHTML = productListData[3].product;
+                row_2_data_3.innerHTML = productListData[3].price;
+
+                row_2_data_5.addEventListener('click', () => {
+                    alert('상품을 삭제하시겠습니까?');
+                    deleteCookie('cart04');
+                    location.href = 'cart.html';
+                })
+            }
+
+            if (getCookie('cart05')) {
+                creatList();
+                row_2_data_1.src = 'image/product_img_05_cart.png';
+                row_2_data_2.innerHTML = productListData[4].product;
+                row_2_data_3.innerHTML = productListData[4].price;
+
+                row_2_data_5.addEventListener('click', () => {
+                    alert('상품을 삭제하시겠습니까?');
+                    deleteCookie('cart05');
+                    location.href = 'cart.html';
+                })
+            }
+
+            if (getCookie('cart06')) {
+                creatList();
+                row_2_data_1.src = 'image/product_img_06_cart.png';
+                row_2_data_2.innerHTML = productListData[5].product;
+                row_2_data_3.innerHTML = productListData[5].price;
+
+                row_2_data_5.addEventListener('click', () => {
+                    alert('상품을 삭제하시겠습니까?');
+                    deleteCookie('cart06');
+                    location.href = 'cart.html';
+                })
+            }
+
+            if (getCookie('cart07')) {
+                creatList();
+                row_2_data_1.src = 'image/product_img_07_cart.png';
+                row_2_data_2.innerHTML = productListData[6].product;
+                row_2_data_3.innerHTML = productListData[6].price;
+
+                row_2_data_5.addEventListener('click', () => {
+                    alert('상품을 삭제하시겠습니까?');
+                    deleteCookie('cart07');
+                    location.href = 'cart.html';
+                })
+            }
+
+            if (getCookie('cart08')) {
+                creatList();
+                row_2_data_1.src = 'image/product_img_08_cart.png';
+                row_2_data_2.innerHTML = productListData[7].product;
+                row_2_data_3.innerHTML = productListData[7].price;
+
+                row_2_data_5.addEventListener('click', () => {
+                    alert('상품을 삭제하시겠습니까?');
+                    deleteCookie('cart08');
+                    location.href = 'cart.html';
+                })
+            }
+
+            if (getCookie('cart09')) {
+                creatList();
+                row_2_data_1.src = 'image/product_img_09_cart.png';
+                row_2_data_2.innerHTML = productListData[8].product;
+                row_2_data_3.innerHTML = productListData[8].price;
+
+                row_2_data_5.addEventListener('click', () => {
+                    alert('상품을 삭제하시겠습니까?');
+                    deleteCookie('cart09');
+                    location.href = 'cart.html';
+                })
+            }
+
+            if (getCookie('cart10')) {
+                creatList();
+                row_2_data_1.src = 'image/product_img_10_cart.png';
+                row_2_data_2.innerHTML = productListData[9].product;
+                row_2_data_3.innerHTML = productListData[9].price;
+
+                row_2_data_5.addEventListener('click', () => {
+                    alert('상품을 삭제하시겠습니까?');
+                    deleteCookie('cart10');
+                    location.href = 'cart.html';
+                })
+            }
+
+
+        }
+
+    });
+
+    // 테이블 반응형
+    let tableBody = document.getElementById("body").appendChild(table);
+
+    if (matchMedia("screen and (max-width: 768px)").matches) {
+        tableBody.style.width = '600px'; // 테이블 전체
+        row_1.style.fontSize = '14px';  // 헤더 전체
+    }
+
+    window.onresize = function () {
+        document.location.reload();
+    };
+
+
+</script>
+
+</html>
+<!--
+-수량 버튼 만들기
+    <div id="quantityButton">
+        <button id="decreaseBtn" onclick="decreaseQuantity()">-</button>
+        <input type="text" id="quantityInput" value="1">
+        <button id="increaseBtn" onclick="increaseQuantity()">+</button>
+    </div>
+
+     // 수량
+    const decreaseBtn = document.getElementById("decreaseBtn");
+    const increaseBtn = document.getElementById("increaseBtn");
+    const quantityInput = document.getElementById("quantityInput");
+
+    let quantity = 1;
+
+    function decreaseQuantity() {
+        if (quantity > 1) {
+            quantity--;
+            quantityInput.value = quantity;
+        }
+    }
+
+    function increaseQuantity() {
+        quantity++;
+        quantityInput.value = quantity;
+    }
+
+
+
+
+
+-->
