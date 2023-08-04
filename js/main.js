@@ -281,14 +281,16 @@ function id_check() {
   }
 
   Object.keys(localStorage).forEach((key) => {
-    if (key.includes("signup_")) {
+    if (key.includes("signup_")) { 
       let signupData = JSON.parse(localStorage.getItem(key));
 
       for (let i = 0; i < signupData.length; i++) {
-        if (
-          signupData[i].userName == name_find.value &&
-          signupData[i].phoneNumber == phoneNumber_find.value
-        ) {
+        if(signupData[i].userName !== name_find.value || signupData[i].phoneNumber !== phoneNumber_find.value){
+          alert('이름이나 번호가 일치하지 않습니다.');
+          name_find.value = '';
+          phoneNumber_find.value = '';
+          name_find.focus();
+        } else if (signupData[i].userName == name_find.value && signupData[i].phoneNumber == phoneNumber_find.value) {
           name_find.value = "";
           phoneNumber_find.value = "";
           alert("아이디:" + " " + signupData[i].id);
@@ -299,7 +301,6 @@ function id_check() {
 }
 
 /*****************************비밀번호 찾기*****************************/
-// 앞에서 세 글자 제외 *로 보여주기
 let findpw = "";
 
 Object.keys(localStorage).forEach((key) => {
@@ -307,24 +308,24 @@ Object.keys(localStorage).forEach((key) => {
     let signupData = JSON.parse(localStorage.getItem(key));
 
     for (let i = 0; i < signupData.length; i++) {
-      findpw = signupData[i].password;
+      findpw = signupData[i].password; // 비밀번호 값을 findpw에 넣어줌 
     }
   }
 });
 
 // 앞에 세 글자 제외 *로 보여주기
-let maskingName = function (strName) {
-  strName = findpw;
-  if (strName.length > 2) {
-    let originName = strName.split("");
-    originName.forEach(function (name, i) {
-      if (i === 0 || i === 1 || i === 2) return;
-      originName[i] = "*";
+let maskingName = function (strName) { // 함수를 maskingName 변수에 넣어줌 
+  strName = findpw; // findpw 변수를 매개변수 srtName 에 넣어줌 
+  if (strName.length > 2) { // strName 문자열의 길이가 2보다 클 경우 
+    let originName = strName.split(""); // 문자열을 잘라주고 변수에 넣어줌 
+    originName.forEach(function (name , i) {
+      if (i === 0 || i === 1 || i === 2) return; // i가 0,1,2번째일 경우 return
+      originName[i] = "*"; // originName의 i번째에 *을 넣어줌 
     });
-    let joinName = originName.join();
-    return joinName.replace(/,/g, "");
-  } else {
-    let pattern = /.$/; // 정규식
+    let joinName = originName.join(); // 문자열을 연결함 
+    return joinName.replace(/,/g, ""); // 쉼표를 제거함 
+  } else {  
+    let pattern = /.$/;
     return strName.replace(pattern, "*");
   }
 };
@@ -358,10 +359,12 @@ function pw_check() {
       let signupData = JSON.parse(localStorage.getItem(key));
 
       for (let i = 0; i < signupData.length; i++) {
-        if (
-          signupData[i].id == id_find.value &&
-          signupData[i].userName == username_find.value
-        ) {
+        if(signupData[i].id !== id_find.value || signupData[i].userName !== username_find.value){
+          alert('아이디 또는 이름이 일치하지 않습니다.');
+          id_find.value = '';
+          username_find.value = '';
+          id_find.focus();
+        } else if (signupData[i].id == id_find.value && signupData[i].userName == username_find.value) {
           id_find.value = "";
           username_find.value = "";
           alert("비밀번호:" + " " + maskingName());

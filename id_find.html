@@ -45,6 +45,9 @@
     body {
         margin: 0;
         padding: 0;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        font-size: 16px;
         background: #fff;
     }
 
@@ -53,11 +56,13 @@
         justify-content: space-between;
         align-items: center;
         background: #000000;
+        height: 94px;
     }
 
     header ul {
         display: flex;
-        margin-left: 300px;
+        margin-left: 280px;
+        transform: translateY(4px);
     }
 
     header ul li {
@@ -68,19 +73,15 @@
 
     header ul li a {
         color: #fff;
-        font-size: 1.6rem;
+        font-size: 1.6em;
         font-weight: bold;
         font-family: 'Secular One', sans-serif;
+        text-decoration: none;
     }
 
     header ul li:hover a {
         color: #C0C0C0;
         border-bottom: 3px solid #C0C0C0;
-    }
-
-    header img {
-        margin-top: 5px;
-        margin-bottom: 5px;
     }
 
     header .mobile_button i {
@@ -89,68 +90,14 @@
         display: none;
     }
 
-    /**********미디어 쿼리**********/
-    @media screen and (max-width:768px) {
-        header {
-            background: #000;
-            flex-direction: column;
-        }
+    /*모바일 메뉴*/
+    .mobile_menu {
+        display: none;
+    }
 
-        header img a {
-            display: none;
-        }
-
-        header .mobile_img {
-            width: 300px;
-            height: 80px;
-            background: url("image/logo_white.png")no-repeat;
-            background-size: contain;
-            margin-top: 30px;
-            margin-left: 15px;
-        }
-
-        header ul {
-            width: 100%;
-            flex-direction: column;
-            align-items: center;
-            margin-top: -8px;
-            display: none;
-        }
-
-        header ul li {
-            width: 90%;
-            margin-bottom: 8px;
-            margin-right: 40px;
-            text-align: center;
-        }
-
-        header ul li a {
-            color: #fff;
-        }
-
-        .mainimg {
-            background-size: cover;
-        }
-
-        header .mobile_button i {
-            display: block;
-            color: #fff;
-            position: absolute;
-            top: 33px;
-            left: 30px;
-        }
-
-        header ul li:hover {
-            background: #C0C0C0;
-        }
-
-        header ul li:hover a {
-            color: #000;
-        }
-
-        header ul.active {
-            display: flex;
-        }
+    /*모바일 버튼*/
+    .mobile_button {
+        display: none;
     }
 
     /*추가*/
@@ -178,15 +125,15 @@
         text-align: left;
     }
 
-    #input-username-find{
+    #input-username-find {
         margin-bottom: 30px;
-        border: 2px solid #C0C0C0;
+        border: 1px solid #C0C0C0;
         font-size: 16px;
     }
 
     #input-phoneNumber-find {
         margin-bottom: 50px;
-        border: 2px solid #C0C0C0;
+        border: 1px solid #C0C0C0;
         font-size: 16px;
     }
 
@@ -203,50 +150,282 @@
         border: 1px solid #000;
         color: #000;
     }
-    
-    /*비번 찾으러 이동*/
+
+    /*비밀번호 찾기*/
     .pw-find-go {
-        height:39.61px; 
-        margin-top:15px;
+        width: 110px;
+        height: 39.61px;
+        margin-top: 15px;
+        margin-left:478px
     }
 
     .pw-find-go p {
         text-decoration: underline;
-        text-align:right;
-        line-height:39.61px;
+        line-height: 39.61px;
     }
+
     .pw-find-go a {
+        color: #000;
+    }
+
+    .pw-find-go a:hover {
+        color: #C0C0C0;
+    }
+
+    /*로그인*/
+    .login-go {
+        width: 120px;
+        height: 39.61px;
+        transform: translateY(-40px);
+        margin-left:400px;
+    }
+
+    .login-go p {
+        text-decoration: underline;
+        line-height: 39.61px;
+    }
+
+    .login-go a {
         color:#000;
     }
 
-    .pw-find-go a:hover{
-        color:#C0C0C0;
+    .login-go a:hover {
+        color: #C0C0C0;
     }
- 
-    
-  
+    /**********미디어 쿼리**********/
+    @media screen and (max-width:768px) {
+        header {
+            background: #000;
+            flex-direction: column;
+            width: 100%;
+            height: 90px;
+            position: relative;
+        }
+
+        header .mainlogo {
+            display: none;
+        }
+
+        /*모바일 로고*/
+        header .mobile_img {
+            background: url("image/logo_white.png")no-repeat;
+            width: 300px;
+            height: 40px;
+            background-size: contain;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        header ul {
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            margin-top: -8px;
+            display: none;
+        }
+
+        header ul li {
+            width: 90%;
+            margin-bottom: 8px;
+            margin-right: 40px;
+            text-align: center;
+        }
+
+        header ul li a {
+            color: #fff;
+        }
+
+        .mainimg {
+            background-size: cover;
+        }
+
+        header .mobile_button {
+            color: #fff;
+            display: block;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 30px;
+            cursor: pointer;
+        }
+
+        header ul li:hover {
+            background: #C0C0C0;
+        }
+
+        header ul li:hover a {
+            color: #000;
+        }
+
+        header ul.active {
+            display: flex;
+        }
+
+        /*모바일 메뉴*/
+        .mobile_menu {
+            width: 100%;
+            height: 100%;
+            display: block;
+            z-index: 500;
+            background: #fff;
+            position: fixed;
+            top: 0;
+            left: -100%;
+            transition: all .5s;
+        }
+
+        .navmenu {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /*모바일 메뉴 안 로고*/
+        .navlogo {
+            position: absolute;
+            top: 28px;
+        }
+
+        .navmenu li {
+            list-style: none;
+            text-align: center;
+            margin-bottom: 25px;
+            margin-right: 30px;
+        }
+
+        .navmenu li a {
+            color: #000;
+            text-decoration: none;
+            font-size: 1.6rem;
+            font-weight: bold;
+            font-family: 'Secular One', sans-serif;
+        }
+
+        /*닫기*/
+        .mobile_close_btn {
+            color: #000;
+            text-align: center;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            left: 35px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .mobile_close_btn:hover {
+            color: #C0C0C0;
+        }
+
+        .mobile_menu li a:hover {
+            color: #C0C0C0;
+            border-bottom: 3px solid #C0C0C0;
+        }
+
+        /*인스타그램 아이콘*/
+        .mobile_menu .sns_icon {
+            color: #000;
+            position: absolute;
+            bottom: 50px;
+        }
+
+        .mobile_menu a i:hover {
+            color: #C0C0C0;
+        }
+
+        /*아이디 찾기*/
+        .mb-4 p {
+            font-size: 2.5em;
+        }
+        
+        /*회원정보 input*/
+        #input-username-find {
+            font-size:15px;
+        }
+
+        input#input-username-find+label {
+            font-size: 14px;
+        }
+
+        #input-phoneNumber-find {
+            font-size:15px;
+        }
+
+        input#input-phoneNumber-find+label {
+            font-size:15px;
+        }
+
+        /*확인 버튼*/
+        .idfindbtn {
+            font-size:15px;
+        }
+
+        /*비밀번호 찾기로 이동*/
+        .pw-find-go {
+            margin-left:425px;
+        }
+
+        .pw-find-go p {
+            font-size:15px;
+        }
+
+        /*로그인*/
+        .login-go {
+            margin-left:350px;
+        }
+
+        .login-go p {
+            font-size:15px;
+        }
+
+
+    }
 </style>
 
-<body style="overflow-y : hidden">
+<body>
     <header>
-        <a href="main_page_login.html"><img src="image/logo_white_02.png" height="80px"></a>
+        <a href="#" onclick="main_page_go_btn()"><img src="image/logo_white_02.png" height="80px" class="mainlogo"></a>
 
-        <div class="mobile_img"></div>
+        <div class="mobile_img" onclick="main_page_go_btn()"></div>
 
         <ul>
             <li><a href="about.html">ABOUT</a></li>
-            <li><a href="shop.html">SHOP</a></li>
             <li><a href="magazine.html">MAGAZINE</a></li>
+            <li><a href="shop.html">SHOP</a></li>
+            <li><a href="cart.html">CART</a></li>
             <li><a href="#" onclick="board_go_btn()">Q&A</a></li>
-            <li><a href="#" onclick="logout_go_btn()">LOGOUT</a></li>
             <li><a href="#" onclick="mypage_go_btn()">MYPAGE</a></li>
         </ul>
 
         <div class="mobile_button">
-            <a href="#"><i class="fa-solid fa-bars fa-2x"></i></a>
+            <img src="image/mobile_button-white.png" width="50px">
             <!--아이콘 크기 2배로 : fa-2x -->
         </div>
     </header>
+
+    <!--모바일 메뉴-->
+    <section class="mobile_menu">
+        <nav class="navmenu">
+            <ul>
+                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="magazine.html">MAGAZINE</a></li>
+                <li><a href="shop.html">SHOP</a></li>
+                <li><a href="cart.html">CART</a></li>
+                <li><a href="#" onclick="board_go_btn()">Q&A</a></li>
+                <li><a href="#" onclick="mypage_go_btn()">MYPAGE</a></li>
+            </ul>
+
+            <p class="mobile_close_btn"><img src="image/close_btn.png" width="50px"></p>
+            <a href="https://www.instagram.com/beattitude.kr/" class="sns_icon"><i
+                    class="fa-brands fa-instagram fa-2x"></i></a>
+
+            <img src="image/logo_mobile.png" width="300px" class="navlogo">
+        </nav>
+    </section>
 
     <div class="container">
         <div class="d-flex flex-column min-vh-100 px-3 pt-4">
@@ -265,7 +444,8 @@
                         </div>
                     </div>
                     <div class="form-floating form-floating-custom mb-3">
-                        <input type="text" class="form-control" id="input-phoneNumber-find" placeholder="Enter Password">
+                        <input type="text" class="form-control" id="input-phoneNumber-find"
+                            placeholder="Enter Password">
                         <label for="input-password">번호</label>
                         <div class="form-floating-icon">
                             <i class="uil uil-users-alt"></i>
@@ -279,8 +459,13 @@
                     <div class="pw-find-go">
                         <p><a href="pw_find.html">비밀번호 찾기</a></p>
                     </div>
- 
-  
+
+                    <div class="login-go">
+                        <p><a href="signin.html">로그인</a></p>
+                    </div>
+                    
+
+
 
                 </div>
             </div><!-- end col -->
@@ -298,6 +483,23 @@
     <script src="assets/libs/metismenujs/metismenujs.min.js"></script>
     <script src="assets/libs/simplebar/simplebar.min.js"></script>
     <script src="assets/libs/feather-icons/feather.min.js"></script>
+
+    <script>
+        // 모바일 크기 버튼 클릭 시 메뉴 나타나게 하기 
+        let toggleBtn = document.querySelector('.mobile_button');
+        let mobileMenu = document.querySelector('.mobile_menu');
+        let mobileClose_btn = document.querySelector('.mobile_close_btn');
+
+        toggleBtn.addEventListener('click', () => {
+            mobileMenu.style.left = '0px';
+            document.body.style.overflowY = 'hidden';
+        })
+
+        mobileClose_btn.addEventListener('click', () => {
+            mobileMenu.style.left = '-100%';
+        })
+
+    </script>
 
 
 </body>

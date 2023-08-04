@@ -135,11 +135,7 @@ function signup_btn() {
     },
   ];
 
-  let storage_signupData = signupData();
-  localStorage.setItem(
-    "signup_" + storage_signupData,
-    JSON.stringify(signupSave)
-  );
+  localStorage.setItem("signup_" + signupData() , JSON.stringify(signupSave));
 }
 
 /*****************************signupData(로그인,로그아웃,회원정보 수정)*****************************/
@@ -159,7 +155,7 @@ function signupData() {
         max = key_number; // 그 값을 max에 넣어줌
       }
     }
-  });
+  }); 
 
   return max + 1;
 }

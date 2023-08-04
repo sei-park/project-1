@@ -22,11 +22,11 @@
     }
 
     .container {
-        min-height: 65vh;
+        min-height: 53vh;
         position: relative;
         border-top: 2px solid #000;
         border-bottom: 2px solid #000;
-        margin-top: 50px;
+        margin-top: 80px;
     }
 
     .line01 {
@@ -63,26 +63,40 @@
         border: none;
     }
 
-    #delete {
-        background: #000;
-        color: #fff;
-        position: absolute;
-        width: 180px;
-        height: 50px;
-        left: 60%;
-        top: 550px;
-        transform: translate(-50%, -50%);
-    }
-
+    /*수정하기 버튼*/
     #modify {
         background: #000;
         color: #fff;
         position: absolute;
         width: 180px;
         height: 50px;
-        left: 43%;
-        top: 550px;
-        transform: translate(-50%, -50%);
+        left: 50%;
+        top: 600px;
+        transform: translate(-120%, -50%);
+        font-size: 1em;
+    }
+
+    #modify:hover {
+        background: #fff;
+        color: #000;
+    }
+
+    /*삭제하기 버튼*/
+    #delete {
+        background: #000;
+        color: #fff;
+        position: absolute;
+        width: 180px;
+        height: 50px;
+        left: 50%;
+        top: 600px;
+        transform: translate(30%, -50%);
+        font-size: 1em;
+    }
+
+    #delete:hover {
+        background: #fff;
+        color: #000;
     }
 
     p {
@@ -158,7 +172,7 @@
         background-position: 50%;
     }
 
-    .open {
+    .open li {
         font-weight: bold;
         position: absolute;
         left: 350px;
@@ -200,6 +214,66 @@
         position: absolute;
         right: 100px;
         bottom: 60px;
+    }
+
+    /**********미디어 쿼리**********/
+    @media screen and (max-width:768px) {
+        .content li {
+            width: 40px;
+            font-size: 15px;
+        }
+
+        /*제목*/
+        #detailpage_title_content {
+            transform: translateX(-35%);
+            font-size: 15px;
+        }
+
+        /*내용*/
+        #detailpage_text_Box {
+            transform: translateX(-35%);
+            font-size: 15px;
+        }
+
+        /*체크 박스*/
+        #check_wrap {
+            transform: translateX(-430%);
+        }
+
+        /*비공개*/
+        .open li {
+            transform: translateX(-250%);
+            font-size: 15px;
+        }
+
+        /*비공개 내용*/
+        .notice {
+            width: 370px;
+            transform: translateX(-32%);
+        }
+
+        .notice li {
+            font-size: 13px;
+        }
+
+        /*수정하기 버튼*/
+        #modify {
+            width: 150px;
+            font-size: 15px;
+        }
+        
+        /*삭제하기 버튼*/
+        #delete {
+            width: 150px;
+            font-size: 15px;
+        }
+
+        #day_night {
+            width: 60px;
+            font-size: 14px;
+            transform: translateX(100%);
+        }
+
     }
 </style>
 
@@ -289,6 +363,7 @@
 
 
     <script>
+        // 피라미터 받기
         const urlParams = new URL(location.href).searchParams;
         const key = urlParams.get('key');
 

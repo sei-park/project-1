@@ -32,8 +32,7 @@
         justify-content: space-between;
         align-items: center;
         background: #000000;
-        border-bottom: 4px solid transparent;
-        height: 90px;
+        height: 94px;
     }
 
     header ul {
@@ -531,7 +530,7 @@
         let month = today.getMonth() + 1; // 월 -> 1월은 0월로 나오기 때문에 +1
         let date = today.getDate(); // 날짜
 
-        let register = year + "." + month + "." + date; // 오늘 날짜
+        let register = year + "." + "0" + month + "." + date; // 오늘 날짜
 
         /*****************************세션 값 불러와서 내용 출력*****************************/
         let session_data = ""; // 세션 key값 가져와서 변수안에 넣어줌

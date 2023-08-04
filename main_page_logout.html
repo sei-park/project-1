@@ -85,7 +85,7 @@
     header .mainlogo {
         margin-top: 6px;
     }
-
+    
     .mobile_button {
         margin-right: 50px;
         display: none;
@@ -621,7 +621,7 @@
     </MARQUEE>
 
 
-    <!--모달 팝업-->
+    <!--팝업-->
     <div id="modal" class="modal-overlay">
         <div class="modal-window">
 
@@ -669,7 +669,7 @@
         })
 
 
-        // 모달 팝업  
+        //팝업창  
         const modal = document.getElementById('modal');
         const btnModal = document.getElementById('btn-modal');
 
@@ -697,7 +697,7 @@
         let modal_overlay = document.querySelector(".modal-overlay");
         let modal_window = document.querySelector(".modal-window");
 
-        // 'modal' 쿠키가 없으면 모달 팝업을 노출시킴
+        // 'modal' 쿠키가 없으면 팝업을 노출시킴
         if (!getCookie("modal")) {
             modal_overlay.style.display = "block";
             modal_window.style.display = "block";

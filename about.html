@@ -32,8 +32,7 @@
         justify-content: space-between;
         align-items: center;
         background: #000000;
-        border-bottom: 4px solid transparent;
-        height:90px;
+        height:94px;
     }
 
     header ul {
@@ -108,7 +107,7 @@
         left: 50%;
         top: 40%;
         transform: translate(-50%, -40%);
-        color: #fff;
+        color:#fff;
     }
 
     .text_motion #dynamic::after {
@@ -119,7 +118,7 @@
         right: -10px;
         width: 4px;
         height: 100%;
-        background-color: white;
+        background:#fff;
     }
 
     /*css active클래스에 속성추가*/
@@ -514,18 +513,17 @@
         })
 
         // 타이핑 효과. 커서 깜빡거림 
-        const target = document.querySelector("#dynamic"); //html에서 dynamic 선택
+        const target = document.querySelector("#dynamic"); 
 
         function blink() {
             target.classList.toggle("active"); // dynamic에 active 클래스 추가<->삭제 반복
         }
         setInterval(blink, 500) // blink 함수를 0.5초마다 실행
 
-        //javascript 작성하기
-        const string = "Put Your Hands Together!";//원하는 텍스트를 string변수 선언
-        const split = string.split(""); //string의 텍스트를 여러개의 문자열로 나눠줌
+        const string = "Put Your Hands Together!";// 원하는 텍스트를 string변수 선언
+        const split = string.split(""); // string의 텍스트를 여러개의 문자열로 나눠줌
 
-        //문자열을 한개씩 나타내주는 함수 만들기
+        // 문자열을 한개씩 나타내주는 함수 만들기
         function dynamic(arr) {
             if (arr.length > 0) { //배열의 길이가 0보다 크면(배열에 요소가 하나라도 있다면)
                 target.textContent += arr.shift();//dynamic에 textContent에 배열의 요소 추가
