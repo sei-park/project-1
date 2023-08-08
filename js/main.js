@@ -26,7 +26,7 @@ window.onload = function () {
 // idsave 쿠키가 없을 경우 로그아웃 페이지. 있을 경우 로그인 페이지로 이동 
 function main_page_go_btn() {
   if(!getCookie('idsave')){
-    location.href = 'main_page_logout.html'
+    location.href = 'index.html'
   } else {
     location.href = 'main_page_login.html'
   }
@@ -160,7 +160,7 @@ function login_btn() {
 function logout_go_btn() {
   deleteCookie('idsave');
   alert('로그아웃 되었습니다.');
-  location.href = 'main_page_logout.html';
+  location.href = 'index.html';
 } // logout_go_btn end
 
 /*****************************회원 정보 수정*****************************/
@@ -217,7 +217,7 @@ function mypage_modify_btn() {
     return;
   } else {
     alert("회원수정이 완료 되었습니다.");
-    location.href = "main_page_logout.html";
+    location.href = "index.html";
     deleteCookie("idsave"); // 쿠키 값 삭제
   }
 

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>메인페이지-로그인</title>
+    <title>메인페이지</title>
     <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/b2aa32177b.js" crossorigin="anonymous"></script>
 
@@ -16,6 +16,8 @@
 
     <!--파비콘-->
     <link rel="shortcut icon" href="image/favicon.png">
+
+
 </head>
 
 <style>
@@ -80,7 +82,7 @@
     header ul li a {
         text-decoration: none;
         color: #000;
-        font-size: 1.6rem;
+        font-size: 1.6em;
         font-weight: bold;
         font-family: 'Secular One', sans-serif;
     }
@@ -394,6 +396,7 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
+            cursor: pointer;
         }
 
         header ul {
@@ -552,7 +555,7 @@
     </section>
 
     <header>
-        <a href="main_page_login.html"><img src="image/logo.png" height="80px" class="mainlogo"></a>
+        <a href="index.html"><img src="image/logo.png" class="mainlogo" height="80px"></a>
 
         <div class="mobile_img" onclick="main_page_go_btn()"></div>
 
@@ -561,7 +564,7 @@
             <li><a href="magazine.html">MAGAZINE</a></li>
             <li><a href="shop.html">SHOP</a></li>
             <li><a href="cart.html">CART</a></li>
-            <li><a href="#" onclick="logout_go_btn()">LOGOUT</a></li>
+            <li><a href="#" onclick="login_go_btn()">LOGIN</a></li>
             <li><a href="#" onclick="board_go_btn()">Q&A</a></li>
             <li><a href="#" onclick="mypage_go_btn()">MYPAGE</a></li>
         </ul>
@@ -581,7 +584,7 @@
                 <li><a href="magazine.html">MAGAZINE</a></li>
                 <li><a href="shop.html">SHOP</a></li>
                 <li><a href="cart.html">CART</a></li>
-                <li><a href="#" onclick="logout_go_btn()">LOGOUT</a></li>
+                <li><a href="#" onclick="login_go_btn()">LOGIN</a></li>
                 <li><a href="#" onclick="board_go_btn()">Q&A</a></li>
                 <li><a href="#" onclick="mypage_go_btn()">MYPAGE</a></li>
             </ul>
@@ -604,7 +607,7 @@
 
         <div class="slide_prev_button slide_button">
             <img src="image/arrow_left.png">
-        </div>
+        </div>sns_login_text
 
         <div class="slide_next_button slide_button">
             <img src="image/arrow_right.png">
@@ -622,7 +625,8 @@
             B(A)</span>
     </MARQUEE>
 
-    <!--모달 팝업-->
+
+    <!--팝업-->
     <div id="modal" class="modal-overlay">
         <div class="modal-window">
 
@@ -670,7 +674,7 @@
         })
 
 
-        // 모달 팝업  
+        //팝업창  
         const modal = document.getElementById('modal');
         const btnModal = document.getElementById('btn-modal');
 
@@ -698,7 +702,7 @@
         let modal_overlay = document.querySelector(".modal-overlay");
         let modal_window = document.querySelector(".modal-window");
 
-        // 'modal' 쿠키가 없으면 모달 팝업을 노출시킴
+        // 'modal' 쿠키가 없으면 팝업을 노출시킴
         if (!getCookie("modal")) {
             modal_overlay.style.display = "block";
             modal_window.style.display = "block";

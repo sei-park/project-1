@@ -35,6 +35,8 @@
         charset="utf-8"></script>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
+    <!--파비콘-->
+    <link rel="shortcut icon" href="image/favicon.png">
 
 </head>
 
@@ -465,7 +467,7 @@
         }
 
         .mt-5 a {
-            font-size:15px;
+            font-size: 15px;
         }
 
         /*sns로 로그인하기 텍스트*/
@@ -666,7 +668,7 @@
         })
 
         ////////// 카카오 로그인//////////
-        Kakao.init('63a860cf27546ddabfdcd62ca8f3c2ed');
+        Kakao.init('b9e4038557a7180b91c7793ea3621f3b');
         console.log(Kakao.isInitialized());
 
         Kakao.Auth.createLoginButton({
@@ -725,10 +727,10 @@
 
 
         //////////네이버 로그인//////////
-        var naver_id_login = new naver_id_login("1unGrvjvJKXzMl8aMUwR", "http://127.0.0.1:5500/naver_login.html");
+        var naver_id_login = new naver_id_login("oJMIiFF4kSzVd9eqUAYF", "http://seiproject01.dothome.co.kr/naver_login.html");
         var state = naver_id_login.getUniqState();
         naver_id_login.setButton("green", 1, 50);
-        naver_id_login.setDomain("http://127.0.0.1:5500/signin.html");
+        naver_id_login.setDomain("http://seiproject01.dothome.co.kr/signin.html");
         naver_id_login.setState(state);
         naver_id_login.setPopup();
         naver_id_login.init_naver_id_login();

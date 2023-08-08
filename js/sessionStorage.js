@@ -122,7 +122,7 @@ function signup_btn() {
     return;
   } else {
     alert("회원가입 되었습니다.");
-    location.href = "main_page_logout.html";
+    location.href = "index.html";
   }
 
   // 저장

@@ -14,6 +14,9 @@
     <script src="js/sessionStorage.js"></script>
     <script src="js/main.js"></script>
     <script src="js/cookie.js"></script>
+
+    <!--파비콘-->
+    <link rel="shortcut icon" href="image/favicon.png">
 </head>
 
 <style>
@@ -32,7 +35,7 @@
         justify-content: space-between;
         align-items: center;
         background: #000000;
-        height:94px;
+        height: 94px;
     }
 
     header ul {
@@ -43,7 +46,7 @@
 
     header ul li {
         list-style: none;
-        margin-right: 40px; 
+        margin-right: 40px;
     }
 
     header ul li a {
@@ -107,7 +110,7 @@
         left: 50%;
         top: 40%;
         transform: translate(-50%, -40%);
-        color:#fff;
+        color: #fff;
     }
 
     .text_motion #dynamic::after {
@@ -118,7 +121,7 @@
         right: -10px;
         width: 4px;
         height: 100%;
-        background:#fff;
+        background: #fff;
     }
 
     /*css active클래스에 속성추가*/
@@ -505,7 +508,7 @@
         toggleBtn.addEventListener('click', () => {
             mobileMenu.style.left = '0px';
             document.body.style.overflowY = 'hidden';
-        }) 
+        })
 
         mobileClose_btn.addEventListener('click', () => {
             mobileMenu.style.left = '-100%';
@@ -513,7 +516,7 @@
         })
 
         // 타이핑 효과. 커서 깜빡거림 
-        const target = document.querySelector("#dynamic"); 
+        const target = document.querySelector("#dynamic");
 
         function blink() {
             target.classList.toggle("active"); // dynamic에 active 클래스 추가<->삭제 반복
